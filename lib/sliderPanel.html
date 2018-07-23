@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <style>
+
+  html {
+    font-family:sans-serif;
+    line-height:1.15;
+    -webkit-text-size-adjust:100%;
+    -ms-text-size-adjust:100%;
+    -ms-overflow-style:scrollbar;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  body {
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-size:1rem;
+    font-weight:400;
+    line-height:1.5;
+    color:#212529;
+    text-align:left;
+    background-color:#fff;
+    padding:30px;
+  }
+
+  .compSum {
+    color:#313437;
+    background-color:#eef4f7;
+  }
+
+  .row {
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:flex;
+    -ms-flex-wrap:wrap;
+    flex-wrap:wrap;
+    margin-right:15px;
+    margin-left:15px;
+  }
+
+  element.style {
+  }
+
+  .justify-content-center {
+    /* -webkit-box-pack:center!important;
+    -ms-flex-pack:center!important; */
+    justify-content:center!important;
+  }
+
+  .compSum .component {
+    padding:0px 0;
+  }
+
+
+
+
+
+    #summary {
+    }
+
+    #dashboard {
+      display: inherit;
+      border: 3px solid #dedede;
+    }
+
+    .compSums {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: center;
+
+    }
+
+
+      /* #cashSum {
+        display: inherit;
+      }
+      #equitySum {
+        display: inherit;
+      }
+      #perkSum {
+        display: inherit;
+      }
+      #timeSum {
+        display: inherit;
+      } */
+
+    #sliderPanel {
+
+    }
+      .sliderBlock {
+
+      }
+      .slider {
+
+      }
+
+  </style>
+</head>
+
+<body>
+  <nav>nav bar============</nav>
+  <h1>Perkolator</h1>
+  <p>******description goes here********</p>
+
+  <svg class="compSums" id="summary">
+    <g class="compSum title" id="dashboard"><p>perkolator dashboard</p></g>
+
+    <g class="row compSum component" id="cashSum"><p>cash sum here</p></g>
+    <g class="row compSum component" id="equitySum"><p>equity sum here</p></g>
+    <g class="row compSum component" id="perkSum"><p>perk sum here</p></g>
+    </svg>
+    <g class="row compSum component" id="timeSum"><p>time sum here</p></g>
+  </svg>
+
+  <svg id="stackedBar"><p>stackbar</p></svg>
+
+  <svg id="sliderPanel">
+    <g class="sliderBlock" id="cashSliders">
+   		<g class="slider cash" id="cashSign"><p>signing bonus</p></g>
+    	<g class="slider cash" id="cashRate"><p>annual base salary</p></g>
+    	<g class="slider cash" id="cashBonus"><p>incentive bonus: cash</p></g>
+  	</g>
+    <g class="sliderBlock" id="equitySliders">
+   		<g class="slider equity" id="equitySign"><p>equity granted upon signing</p></g>
+    	<g class="slider equity" id="equityRate"><p>equity earned annually</p></g>
+    	<g class="slider equity" id="equityBonus"><p>incentive bonus: equity</p></g>
+  	</g>
+    <g class="sliderBlock" id="perkSliders">
+   		<g class="slider perk" id="companyPaid"><p>perk paid for by company</p></g>
+    	<g class="slider perk" id="employeeReimbursed"><p>stipend received by employee</p></g>
+    	<g class="slider perk" id="match401k"><p>retirement savings contribution matching</p></g>
+  	</g>
+    <g class="sliderBlock" id="timeSliders">
+   		<g class="slider time" id="timeToOnboard"><p>on boarding time</p></g>
+    	<g class="slider time" id="timeRate"><p>hours per week committed</p></g>
+    	<g class="slider time" id="timeUtilization"><p>expected billable hours/total hours</p></g>
+  	</g>
+  </svg>
+
+
+
+
+
+  <script>
+    // // Feel free to change or delete any of the code you see in this editor!
+    // var svg = d3.select("body").append("svg")
+    //   // .attr("width", 160)
+    //   // .attr("height", 200)
+    //
+    // svg.append("text")
+    //   .text("Edit the code below to change me!")
+    //   .attr("y", 200)
+    //   .attr("x", 120)
+    //   .attr("font-size", 36)
+    //   .attr("font-family", "monospace")
+
+  </script>
+</body>

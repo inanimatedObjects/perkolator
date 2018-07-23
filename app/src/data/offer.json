@@ -1,0 +1,60 @@
+[
+  {
+    "cash": {
+      "_upFront" : {
+        "_value" : 5000
+      },
+      "_baseRate" : {
+        "_value" : 100000
+      },
+      "_incentivePeriod" : {
+        "_value" : 10000
+      },
+      "_categoryTotal": {
+        "_value" : 115000
+      },
+    },
+    "equity": {
+      "_upFront" : {
+        "_value" : 20000
+      },
+      "_baseRate" : {
+        "_value" : 5000
+      },
+      "_incentivePeriod" : {
+        "_value" : 2000
+      },
+      "_categoryTotal": {
+        "_value" : 27000
+      },
+    },
+    "benefits": {
+      "_upFront" : {
+        "_value" : 5000
+      },
+      "_baseRate" : {
+        "_value" : 30000
+      },
+      "_incentivePeriod" : {
+        "_value" : 1000
+      },
+      "_categoryTotal": {
+        "_value" : 36000
+      },
+    },
+    "time": {
+      "_upFront" : {
+        "_value" : -500
+      },
+      "_baseRate" : {
+        "_value" : 2000
+      },
+      "_incentivePeriod" : {
+        "_value" : 700
+      },
+      "_categoryTotal": {
+        "_value" : 22000
+      },
+    },
+  }
+]

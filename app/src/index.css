@@ -1,0 +1,50 @@
+.axis path,
+.axis line {
+  fill: none;
+  stroke: black;
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  font-size: 11px;
+}
+
+.axis.dotted line,
+.axis.dotted path {
+  stroke-dasharray: 0.9;
+}
+
+.bar {
+  transition: all 0.25s ease-out;
+}
+
+.bar.selected {
+  fill: red;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin: 3em auto;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+
+.bar.selected {
+  stroke: black;
+}
+
+.bar.selecting {
+  fill-opacity: 0.9;
+}
+
+.radar {
+  fill: none;
+  stroke: purple;
+  stroke-width: 1.5px;
+}
