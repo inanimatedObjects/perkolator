@@ -27,7 +27,7 @@ const renderCard = (data) => {
     .attr('class', 'barRect ' + data.name)
     .attr('x', width / 16)
     .attr('y', height / 10)
-    .attr('width', data.value)
+    .attr('width', (data.value / data.max) * backBarWidth)
     .attr('height', height / 2)
     // .attr('fill', (d, i) => { return colorScale(d) });
 
@@ -36,7 +36,7 @@ const renderCard = (data) => {
     .attr('min', data.min)
     .attr('max', data.max)
 
-  d3.selectAll('output[type=range].slider.' + data.name)
+  d3.selectAll('input[type=range].slider.' + data.name)
     .property('defaultValue', data.value )
 
   d3.select('.sliderMin.' + data.name)
@@ -47,9 +47,10 @@ const renderCard = (data) => {
 
   // change values when slider is dragged
   d3.select('input[type=range].' + data.name + '.slider').on('input', function() {
-    let ratio = this.value / (data.max - data.min)
+    data.value = this.value;
+    let barRatio = this.value / data.max
     svg.selectAll('.barRect')
-      .attr('width', backBarWidth * ratio);
+      .attr('width', backBarWidth * barRatio);
 
     d3.select('output.slider.' + data.name)
       .text(function(d) {
@@ -62,8 +63,9 @@ const renderCard = (data) => {
     console.log('before', data.min, data.max, data.value)
     let newRange = (this.name === 'sliderMin') ? data.min = this.value
                                                : data.max = this.value;
-    console.log('after', data.min, data.max)
+    console.log('after', data.min, data.max, data.value)
     let newRatio = (data.max - data.min) / data.value
+    console.log(newRatio)
     d3.selectAll('input[type=range].' + data.name)
       .attr('value', (newRatio * this.value))
       .attr('min', (this.name === 'sliderMin') ? this.value
@@ -72,7 +74,7 @@ const renderCard = (data) => {
                                                : data.max);
    svg.selectAll('.barRect')
       .attr('width', function() {
-        newRatio
+        return (data.value / data.max) * backBarWidth;
       });
   })
 
@@ -81,7 +83,6 @@ const renderCard = (data) => {
     this.innerHTML === 'Unlock range' ? this.innerHTML='Lock range'
                                 : this.innerHTML='Unlock range';
     let ranges = [].slice.call(document.querySelectorAll('.sliderRange.' + data.name));
-    console.log(ranges)
     ranges.forEach(function(range) {
       $(range).prop('disabled', (i, v) => { return !v });
       $(range).hasClass('unlocked') ? $(range).removeClass('unlocked')
