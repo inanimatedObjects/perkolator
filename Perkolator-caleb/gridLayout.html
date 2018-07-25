@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="https://d3js.org/d3-color.v1.min.js"></script>
+	<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+	<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+  <link rel="stylesheet" href="./styles.css"></style>
+</head>
+
+<body>
+  <script type="text/javascript" src="./data.js"></script>
+  <script type="text/javascript" src="./scripts/renderCards.js"></script>
+  <script type="text/javascript" src="./scripts/renderStackedBar.js"></script>
+  <script type="text/javascript" src="./scripts/renderSummaryPanel.js"></script>
+
+
+  <div class="grid">
+    <div class="box head">
+      <h2 class="title">perkolator</h2>
+    </div>
+    <div class="box summaryPanel" id="summaryPanel"></div>
+    <div class="box stackedBar" id="stackedBar"></div>
+
+    <!-- TODO: look into html templates - use this as a modular piece if it works -->
+    <div class="box card cash1">
+
+      <div id="cardContainer">
+        <div id="cash1" class="bar"></div>
+        <div class="outputContainer">
+          <output class="cash1 slider">$5,000</output>
+        </div>
+        <div id="sliderContainer">
+          <p>
+            <input type="number" value="0" name="sliderMin" class="cash1 sliderRange sliderMin" disabled />
+            <input type="range" max="100" step="1" name="Signing Bonus" class="cash1 slider" />
+            <input type="number" name="sliderMax" class="cash1 sliderRange sliderMax" disabled />
+          </p>
+          <button type="button" class="unlockBtn cash1">Unlock range</button>
+        </div>
+      </div>
+    </div>
+    <div class="box card cash2">
+      <div id="cardContainer">
+        <div id="cash2" class="bar"></div>
+        <div class="outputContainer">
+          <output class="cash2 slider">$100,000</output>
+        </div>
+        <div id="sliderContainer">
+          <p>
+            <input type="number" value="0" name="sliderMin" class="cash2 sliderRange sliderMin" disabled />
+            <input type="range" max="100" step="1" name="Base Salary" class="cash2 slider" />
+            <input type="number" name="sliderMax" class="cash2 sliderRange sliderMax" disabled />
+          </p>
+          <button type="button" class="unlockBtn cash2">Unlock range</button>
+        </div>
+      </div>
+    </div>
+    <div class="box card cash3">
+      <div id="cardContainer">
+        <div id="cash3" class="bar"></div>
+        <div class="outputContainer">
+          <output class="cash3 slider">$10,000</output>
+        </div>
+        <div id="sliderContainer">
+          <p>
+            <input type="number" value="0" name="sliderMin" class="cash3 sliderRange sliderMin" disabled />
+            <input type="range" max="100" step="1" name="Incentive Comp - Cash" class="cash3 slider" />
+            <input type="number" name="sliderMax" class="cash3 sliderRange sliderMax" disabled />
+          </p>
+          <button type="button" class="unlockBtn cash3">Unlock range</button>
+        </div>
+      </div>
+    </div>
+    <div class="box card equity1">
+      <div id="cardContainer">
+        <div id="equity1" class="bar"></div>
+        <div class="outputContainer">
+          <output class="equity1 slider">$20,000</output>
+        </div>
+        <div id="sliderContainer">
+          <p>
+            <input type="number" value="0" name="sliderMin" class="equity1 sliderRange sliderMin" disabled />
+            <input type="range" max="100" step="1" name="Base Equity" class="equity1 slider" />
+            <input type="number" name="sliderMax" class="equity1 sliderRange sliderMax" disabled />
+          </p>
+          <button type="button" class="unlockBtn equity1">Unlock range</button>
+        </div>
+      </div>
+    </div>
+    <div class="box card equity2">
+      <div id="cardContainer">
+        <div id="equity2" class="bar"></div>
+        <div class="outputContainer">
+          <output class="equity2 slider">$5,000</output>
+        </div>
+        <div id="sliderContainer">
+          <p>
+            <input type="number" value="0" name="sliderMin" class="equity2 sliderRange sliderMin" disabled />
+            <input type="range" max="100" step="1" name="eqRate" class="equity2 slider" />
+            <input type="number" name="sliderMax" class="equity2 sliderRange sliderMax" disabled />
+          </p>
+          <button type="button" class="unlockBtn equity2">Unlock range</button>
+        </div>
+      </div>
+    </div>
+    <div class="box card equity3">
+      <div id="cardContainer">
+        <div id="equity3" class="bar"></div>
+        <div class="outputContainer">
+          <output class="equity3 slider">$2,000</output>
+        </div>
+        <div id="sliderContainer">
+          <p>
+            <input type="number" value="0" name="sliderMin" class="equity3 sliderRange sliderMin" disabled />
+            <input type="range" max="100" step="1" name="Incentive Comp - Equity" class="equity3 slider" />
+            <input type="number" name="sliderMax" class="equity3 sliderRange sliderMax" disabled />
+          </p>
+          <button type="button" class="unlockBtn equity3">Unlock range</button>
+        </div>
+      </div>
+    </div>
+    <div class="box card perks1">
+      <div id="cardContainer">
+        <div id="perks1" class="bar"></div>
+        <div class="outputContainer">
+          <output class="perks1 slider">$5,000</output>
+        </div>
+        <div id="sliderContainer">
+          <p>
+            <input type="number" value="0" name="sliderMin" class="perks1 sliderRange sliderMin" disabled />
+            <input type="range" max="100" step="1" name="Stipends" class="perks1 slider" />
+            <input type="number" name="sliderMax" class="perks1 sliderRange sliderMax" disabled />
+          </p>
+          <button type="button" class="unlockBtn perks1">Unlock range</button>
+        </div>
+      </div>
+    </div>
+    <div class="box card perks2">
+      <div id="cardContainer">
+        <div id="perks2" class="bar"></div>
+        <div class="outputContainer">
+          <output class="perks2 slider">$30,000</output>
+        </div>
+        <div id="sliderContainer">
+          <p>
+            <input type="number" value="0" name="sliderMin" class="perks2 sliderRange sliderMin" disabled />
+            <input type="range" max="100" step="1" name="Benefits" class="perks2 slider" />
+            <input type="number" name="sliderMax" class="perks2 sliderRange sliderMax" disabled />
+          </p>
+          <button type="button" class="unlockBtn perks2">Unlock range</button>
+        </div>
+      </div>
+    </div>
+    <div class="box card perks3">
+      <div id="cardContainer">
+        <div id="perks3" class="bar"></div>
+        <div class="outputContainer">
+          <output class="perks3 slider">$1,000</output>
+        </div>
+        <div id="sliderContainer">
+          <p>
+            <input type="number" value="0" name="sliderMin" class="perks3 sliderRange sliderMin" disabled />
+            <input type="range" max="100" step="1" name="Retirement Savings" class="perks3 slider" />
+            <input type="number" name="sliderMax" class="perks3 sliderRange sliderMax" disabled />
+          </p>
+          <button type="button" class="unlockBtn perks3">Unlock range</button>
+        </div>
+      </div>
+    </div>
+    <div class="box card time1">
+      <div id="cardContainer">
+        <div id="time1" class="bar"></div>
+        <div class="outputContainer">
+          <output class="time1 slider">$500</output>
+        </div>
+        <div id="sliderContainer">
+          <p>
+            <input type="number" value="0" name="sliderMin" class="time1 sliderRange sliderMin" disabled />
+            <input type="range" max="100" step="1" name="timeRate" class="time1 slider" />
+            <input type="number" name="sliderMax" class="time1 sliderRange sliderMax" disabled />
+          </p>
+          <button type="button" class="unlockBtn time1">Unlock range</button>
+        </div>
+      </div>
+    </div>
+    <div class="box card time2">
+      <div id="cardContainer">
+        <div id="time2" class="bar"></div>
+        <div class="outputContainer">
+          <output class="time2 slider">$200</output>
+        </div>
+        <div id="sliderContainer">
+          <p>
+            <input type="number" value="0" name="sliderMin" class="time2 sliderRange sliderMin" disabled />
+            <input type="range" max="100" step="1" name="timeAllocation" class="time2 slider" />
+            <input type="number" name="sliderMax" class="time2 sliderRange sliderMax" disabled />
+          </p>
+          <button type="button" class="unlockBtn time2">Unlock range</button>
+        </div>
+      </div>
+    </div>
+    <div class="box card time3">
+      <div id="cardContainer">
+        <div id="time3" class="bar"></div>
+        <div class="outputContainer">
+          <output class="time3 slider">$700</output>
+        </div>
+        <div id="sliderContainer">
+          <p>
+            <input type="number" value="0" name="sliderMin" class="time3 sliderRange sliderMin" disabled />
+            <input type="range" max="100" step="1" name="timeUtilization" class="time3 slider" />
+            <input type="number" name="sliderMax" class="time3 sliderRange sliderMax" disabled />
+          </p>
+          <button type="button" class="unlockBtn time3">Unlock range</button>
+        </div>
+      </div>
+    </div>
+    <div class="box footer">
+      <div class="ioTag">
+        <p>inanimated objects     </p> <p class="ioLine"> | </p> <p>       2018</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    // TODO: try to store data in session storage
+    // let storeData = (data) => {
+    //   if (typeof(Storage) !== 'undefined') {
+    //     sessionStorage.setItem('data', data);
+    //   }
+    // };
+    // storeData(data);
+    // console.log(sessionStorage.getItem('data'))
+
+    // // TODO: define color scale
+    let colorScale = d3.scaleLinear(d3.schemePaired)
+      .domain(d3.extent(data, (d) => { return d.x }))
+      .range(d3.extent(data, (d) => { return d.y }));
+
+    // render summary panel
+    renderSummaryPanel(data);
+
+    // render all cards
+    data.forEach((d) => {
+      renderCard(d);
+    })
+
+
+    // var backBarWidth = 350;
+    // var currDisplayVals = document.querySelectorAll('output.slider');
+    // var displayValsArr = [];
+    // change currDisplayVals from a node list to an array
+    // for (var i = currDisplayVals.length; i--; displayValsArr.unshift(currDisplayVals[i]));
+    // create sanitized array of display values
+    // var dataArr = displayValsArr.map(function(d) {
+    //   return Number(d.innerHTML.split(',').join('').split('$').join(''));
+    // });
+    // create an accumulating x-scale
+    // var accumXScale = [0];
+    // dataArr.reduce((a, b, i) => {
+    //   return accumXScale[i + 1] = a + b;
+    // }, 0);
+    // store the total value of all cards
+    // var dataTotal = accumXScale[accumXScale.length - 1]
+    // renderStackedBar(dataArr, )
+
+
+
+  </script>
+
+</body>
