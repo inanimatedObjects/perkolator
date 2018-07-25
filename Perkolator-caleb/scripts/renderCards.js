@@ -48,7 +48,7 @@ const renderCard = (data) => {
   // change values when slider is dragged
   d3.select('input[type=range].' + data.name + '.slider').on('input', function() {
     data.value = this.value;
-    let barRatio = this.value / data.max
+    let barRatio = this.value / data.max;
     svg.selectAll('.barRect')
       .attr('width', backBarWidth * barRatio);
 
@@ -60,12 +60,9 @@ const renderCard = (data) => {
 
   // change values when min or max changes
   d3.selectAll('input[type=number].' + data.name + '.sliderRange').on('change', function() {
-    console.log('before', data.min, data.max, data.value)
     let newRange = (this.name === 'sliderMin') ? data.min = this.value
                                                : data.max = this.value;
-    console.log('after', data.min, data.max, data.value)
     let newRatio = (data.max - data.min) / data.value
-    console.log(newRatio)
     d3.selectAll('input[type=range].' + data.name)
       .attr('value', (newRatio * this.value))
       .attr('min', (this.name === 'sliderMin') ? this.value
