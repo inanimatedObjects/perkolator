@@ -20,8 +20,8 @@ const renderSummaryPanel = (data) => {
       .attr('y', 100)
   })
 
-  d3.selectAll('input[type=range]').on('input', function() {
-    console.log(this)
-  })
+  // d3.selectAll('input[type=range]').on('input', function() {
+  //   console.log(this)
+  // })
 
 }

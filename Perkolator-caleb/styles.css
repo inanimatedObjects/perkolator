@@ -39,13 +39,15 @@ html, body {
 .bar {
   height: 100px;
 }
-
+input.slider {
+  width: 257px;
+}
 input.sliderMin {
   text-align: right;
 }
-input.sliderMax {
-  margin-left: 20px;
-}
+/* input.sliderMax {
+  margin-left: 10px;
+} */
 input.sliderRange {
   border: none;
   width: 70px;
@@ -56,7 +58,7 @@ input.sliderRange.unlocked {
 output.slider {
   font-size: 24pt;
 }
-text.title {
+text.cardTitle {
   font-size: 16pt;
   text-align: center;
 }

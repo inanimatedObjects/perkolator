@@ -7,6 +7,9 @@
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
+  <script src="https://d3js.org/d3-color.v1.min.js"></script>
+	<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+	<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
   <link rel="stylesheet" href="./styles.css"></style>
 </head>
 
@@ -35,7 +38,7 @@
         <div id="sliderContainer">
           <p>
             <input type="number" value="0" name="sliderMin" class="cash1 sliderRange sliderMin" disabled />
-            <input type="range" max="1" step=".01" name="Signing Bonus" class="cash1 slider" />
+            <input type="range" max="100" step="1" name="Signing Bonus" class="cash1 slider" />
             <input type="number" name="sliderMax" class="cash1 sliderRange sliderMax" disabled />
           </p>
           <button type="button" class="unlockBtn cash1">Unlock range</button>
@@ -51,7 +54,7 @@
         <div id="sliderContainer">
           <p>
             <input type="number" value="0" name="sliderMin" class="cash2 sliderRange sliderMin" disabled />
-            <input type="range" max="1" step=".01" name="Base Salary" class="cash2 slider" />
+            <input type="range" max="100" step="1" name="Base Salary" class="cash2 slider" />
             <input type="number" name="sliderMax" class="cash2 sliderRange sliderMax" disabled />
           </p>
           <button type="button" class="unlockBtn cash2">Unlock range</button>
@@ -67,7 +70,7 @@
         <div id="sliderContainer">
           <p>
             <input type="number" value="0" name="sliderMin" class="cash3 sliderRange sliderMin" disabled />
-            <input type="range" max="1" step=".01" name="Incentive Comp - Cash" class="cash3 slider" />
+            <input type="range" max="100" step="1" name="Incentive Comp - Cash" class="cash3 slider" />
             <input type="number" name="sliderMax" class="cash3 sliderRange sliderMax" disabled />
           </p>
           <button type="button" class="unlockBtn cash3">Unlock range</button>
@@ -83,7 +86,7 @@
         <div id="sliderContainer">
           <p>
             <input type="number" value="0" name="sliderMin" class="equity1 sliderRange sliderMin" disabled />
-            <input type="range" max="1" step=".01" name="Base Equity" class="equity1 slider" />
+            <input type="range" max="100" step="1" name="Base Equity" class="equity1 slider" />
             <input type="number" name="sliderMax" class="equity1 sliderRange sliderMax" disabled />
           </p>
           <button type="button" class="unlockBtn equity1">Unlock range</button>
@@ -99,7 +102,7 @@
         <div id="sliderContainer">
           <p>
             <input type="number" value="0" name="sliderMin" class="equity2 sliderRange sliderMin" disabled />
-            <input type="range" max="1" step=".01" name="eqRate" class="equity2 slider" />
+            <input type="range" max="100" step="1" name="eqRate" class="equity2 slider" />
             <input type="number" name="sliderMax" class="equity2 sliderRange sliderMax" disabled />
           </p>
           <button type="button" class="unlockBtn equity2">Unlock range</button>
@@ -115,7 +118,7 @@
         <div id="sliderContainer">
           <p>
             <input type="number" value="0" name="sliderMin" class="equity3 sliderRange sliderMin" disabled />
-            <input type="range" max="1" step=".01" name="Incentive Comp - Equity" class="equity3 slider" />
+            <input type="range" max="100" step="1" name="Incentive Comp - Equity" class="equity3 slider" />
             <input type="number" name="sliderMax" class="equity3 sliderRange sliderMax" disabled />
           </p>
           <button type="button" class="unlockBtn equity3">Unlock range</button>
@@ -131,7 +134,7 @@
         <div id="sliderContainer">
           <p>
             <input type="number" value="0" name="sliderMin" class="perks1 sliderRange sliderMin" disabled />
-            <input type="range" max="1" step=".01" name="Stipends" class="perks1 slider" />
+            <input type="range" max="100" step="1" name="Stipends" class="perks1 slider" />
             <input type="number" name="sliderMax" class="perks1 sliderRange sliderMax" disabled />
           </p>
           <button type="button" class="unlockBtn perks1">Unlock range</button>
@@ -147,7 +150,7 @@
         <div id="sliderContainer">
           <p>
             <input type="number" value="0" name="sliderMin" class="perks2 sliderRange sliderMin" disabled />
-            <input type="range" max="1" step=".01" name="Benefits" class="perks2 slider" />
+            <input type="range" max="100" step="1" name="Benefits" class="perks2 slider" />
             <input type="number" name="sliderMax" class="perks2 sliderRange sliderMax" disabled />
           </p>
           <button type="button" class="unlockBtn perks2">Unlock range</button>
@@ -163,7 +166,7 @@
         <div id="sliderContainer">
           <p>
             <input type="number" value="0" name="sliderMin" class="perks3 sliderRange sliderMin" disabled />
-            <input type="range" max="1" step=".01" name="Retirement Savings" class="perks3 slider" />
+            <input type="range" max="100" step="1" name="Retirement Savings" class="perks3 slider" />
             <input type="number" name="sliderMax" class="perks3 sliderRange sliderMax" disabled />
           </p>
           <button type="button" class="unlockBtn perks3">Unlock range</button>
@@ -179,7 +182,7 @@
         <div id="sliderContainer">
           <p>
             <input type="number" value="0" name="sliderMin" class="time1 sliderRange sliderMin" disabled />
-            <input type="range" max="1" step=".01" name="timeRate" class="time1 slider" />
+            <input type="range" max="100" step="1" name="timeRate" class="time1 slider" />
             <input type="number" name="sliderMax" class="time1 sliderRange sliderMax" disabled />
           </p>
           <button type="button" class="unlockBtn time1">Unlock range</button>
@@ -195,7 +198,7 @@
         <div id="sliderContainer">
           <p>
             <input type="number" value="0" name="sliderMin" class="time2 sliderRange sliderMin" disabled />
-            <input type="range" max="1" step=".01" name="timeAllocation" class="time2 slider" />
+            <input type="range" max="100" step="1" name="timeAllocation" class="time2 slider" />
             <input type="number" name="sliderMax" class="time2 sliderRange sliderMax" disabled />
           </p>
           <button type="button" class="unlockBtn time2">Unlock range</button>
@@ -211,7 +214,7 @@
         <div id="sliderContainer">
           <p>
             <input type="number" value="0" name="sliderMin" class="time3 sliderRange sliderMin" disabled />
-            <input type="range" max="1" step=".01" name="timeUtilization" class="time3 slider" />
+            <input type="range" max="100" step="1" name="timeUtilization" class="time3 slider" />
             <input type="number" name="sliderMax" class="time3 sliderRange sliderMax" disabled />
           </p>
           <button type="button" class="unlockBtn time3">Unlock range</button>
@@ -226,6 +229,7 @@
   </div>
 
   <script>
+
     // TODO: try to store data in session storage
     // let storeData = (data) => {
     //   if (typeof(Storage) !== 'undefined') {
@@ -235,19 +239,17 @@
     // storeData(data);
     // console.log(sessionStorage.getItem('data'))
 
-    // define color scale
+    // // TODO: define color scale
     let colorScale = d3.scaleLinear(d3.schemePaired)
       .domain(d3.extent(data, (d) => { return d.x }))
       .range(d3.extent(data, (d) => { return d.y }));
-
-      console.log(colorScale)
 
     // render summary panel
     renderSummaryPanel(data);
 
     // render all cards
-    data.forEach((card) => {
-      renderCard(card);
+    data.forEach((d) => {
+      renderCard(d);
     })
 
 
