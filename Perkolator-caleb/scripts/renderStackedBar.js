@@ -9,7 +9,7 @@ const renderStackedBar = (data) => {
   let normalizedData = normalize(dataArr);
 
   let chartX = 900;
-  let chartY = 200;
+  let chartY = 100;
   let xSum = d3.sum(normalizedData);
 
   let bars = d3.select("#stackedBar")
@@ -22,8 +22,8 @@ const renderStackedBar = (data) => {
       .attr("class", "stackedBarBackground")
       .attr("x", 0)
       .attr("y", 50)
-      .attr("width", 900)
-      .attr("height", 100)
+      .attr("width", chartX)
+      .attr("height", chartY)
       .attr("fill", "none")
       .attr("stroke", "black")
       .attr("stroke-width", 1)
