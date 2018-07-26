@@ -46,7 +46,7 @@ const renderStackedBar = (data) => {
             let xPosition = d3.mouse(this)[0] - 15;
             let yPosition = d3.mouse(this)[1] - 25;
             tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-            tooltip.select("text").text(data.value);
+            tooltip.select("text").text(this.value);
           });
 
     let tooltip = bars.append("g")
