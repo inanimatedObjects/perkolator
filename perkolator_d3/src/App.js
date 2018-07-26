@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import * as d3 from 'd3';
+import _ from 'lodash';
+import SummaryPanel from './scripts/SummaryPanel';
+import StackedBars from './scripts/StackedBars';
+import SliderPanel from './scripts/SliderPanel';
+import AnalyticsPanel from './scripts/AnalyticsPanel';
+
+import compData from './data/offerSheet.json';
 
 class App extends Component {
   render() {
