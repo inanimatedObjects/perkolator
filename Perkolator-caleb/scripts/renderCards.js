@@ -29,7 +29,7 @@ const renderCard = (data) => {
     .attr('y', height / 10)
     .attr('width', (data.value / data.max) * backBarWidth)
     .attr('height', height / 2)
-    // .attr('fill', (d, i) => { return colorScale(d) });
+    .attr('fill', (d, i) => { return colorScale(d) });
 
   d3.select('input[type=range].' + data.name)
     .attr('value', data.value)
@@ -55,14 +55,14 @@ const renderCard = (data) => {
     d3.select('output.slider.' + data.name)
       .text(function(d) {
         return '$' + d3.format(',')(d)
-      }(Math.floor(this.value)))
+      }(Math.floor(this.value / 100) * 100))
   });
 
   // change values when min or max changes
   d3.selectAll('input[type=number].' + data.name + '.sliderRange').on('change', function() {
     let newRange = (this.name === 'sliderMin') ? data.min = this.value
                                                : data.max = this.value;
-    let newRatio = (data.max - data.min) / data.value
+    let newRatio = (data.max - data.min) / data.value;
     d3.selectAll('input[type=range].' + data.name)
       .attr('value', (newRatio * this.value))
       .attr('min', (this.name === 'sliderMin') ? this.value

@@ -14,14 +14,15 @@ const renderSummaryPanel = (data) => {
   let summaryText = summaryData.forEach((d, i) => {
     svg.append('g')
       .append('text')
+      .attr('class', d[0] + ' summary')
       .attr('text-anchor', 'middle')
       .text(d[0] + " : " + d[1])
       .attr('x', (((width / 4) * i) + 100))
       .attr('y', 100)
   })
 
-  // d3.selectAll('input[type=range]').on('input', function() {
-  //   console.log(this)
-  // })
+  d3.selectAll('input[type=range]').on('input', function() {
+    console.log(this)
+  })
 
 }

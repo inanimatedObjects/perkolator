@@ -241,8 +241,8 @@
 
     // // TODO: define color scale
     let colorScale = d3.scaleLinear(d3.schemePaired)
-      .domain(d3.extent(data, (d) => { return d.x }))
-      .range(d3.extent(data, (d) => { return d.y }));
+      .domain(d3.extent(data, (d) => { return d.max }))
+      .range(d3.extent(data, (d) => { return d.min }));
 
     // render summary panel
     renderSummaryPanel(data);
