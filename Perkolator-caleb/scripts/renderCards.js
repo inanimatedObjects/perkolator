@@ -29,7 +29,7 @@ const renderCard = (data) => {
     .attr('y', height / 10)
     .attr('width', (data.value / data.max) * backBarWidth)
     .attr('height', height / 2)
-    .attr('fill', (d, i) => { return colorScale(d) });
+    .attr('fill', (d, i) => { return colorScale(i) });
 
   d3.select('input[type=range].' + data.name)
     .attr('value', data.value)

@@ -253,23 +253,22 @@
     })
 
 
-    // var backBarWidth = 350;
-    // var currDisplayVals = document.querySelectorAll('output.slider');
-    // var displayValsArr = [];
+    let currDisplayVals = document.querySelectorAll('output.slider');
+    let displayValsArr = [];
     // change currDisplayVals from a node list to an array
-    // for (var i = currDisplayVals.length; i--; displayValsArr.unshift(currDisplayVals[i]));
+    for (let i = currDisplayVals.length; i--; displayValsArr.unshift(currDisplayVals[i]));
     // create sanitized array of display values
-    // var dataArr = displayValsArr.map(function(d) {
-    //   return Number(d.innerHTML.split(',').join('').split('$').join(''));
-    // });
+    let dataArr = displayValsArr.map(function(d) {
+      return Number(d.innerHTML.split(',').join('').split('$').join(''));
+    });
     // create an accumulating x-scale
-    // var accumXScale = [0];
-    // dataArr.reduce((a, b, i) => {
-    //   return accumXScale[i + 1] = a + b;
-    // }, 0);
+    let accumXScale = [0];
+    dataArr.reduce((a, b, i) => {
+      return accumXScale[i + 1] = a + b;
+    }, 0);
     // store the total value of all cards
-    // var dataTotal = accumXScale[accumXScale.length - 1]
-    // renderStackedBar(dataArr, )
+    let dataTotal = accumXScale[accumXScale.length - 1];
+    renderStackedBar(data);
 
 
 

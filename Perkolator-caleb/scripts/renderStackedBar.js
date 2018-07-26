@@ -4,20 +4,15 @@ function normalize(array) {
   return mapped;
 };
 
-var renderStackedBar = (data) => {
-  var accumXScale = [0];
-  data.reduce((a, b, i) => {
-    return accumXScale[i + 1] = a + b;
-  }, 0);
+const renderStackedBar = (data) => {
+  let normalizedXScale = normalize(accumXScale);
+  let normalizedData = normalize(dataArr);
 
-  var normalizedXScale = normalize(accumXScale);
-  var normalizedData = normalize(data);
+  let chartX = 900;
+  let chartY = 200;
+  let xSum = d3.sum(normalizedData);
 
-  var chartX = 900;
-  var chartY = 200;
-  var xSum = d3.sum(normalizedData);
-
-  var bars = d3.select("#stackedBar")
+  let bars = d3.select("#stackedBar")
       .append("svg")
       .attr("class", "bar")
       .style("width", chartX)
@@ -48,13 +43,13 @@ var renderStackedBar = (data) => {
           .on("mouseover", function() { tooltip.style("display", null); })
           .on("mouseout", function() { tooltip.style("display", "none"); })
           .on("mousemove", function(d) {
-            var xPosition = d3.mouse(this)[0] - 15;
-            var yPosition = d3.mouse(this)[1] - 25;
+            let xPosition = d3.mouse(this)[0] - 15;
+            let yPosition = d3.mouse(this)[1] - 25;
             tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
-            tooltip.select("text").text(document.querySelector(".output." + cardName).value);
+            tooltip.select("text").text(data.value);
           });
 
-    var tooltip = bars.append("g")
+    let tooltip = bars.append("g")
       .attr("class", "tooltip")
       .style("display", "none")
 
