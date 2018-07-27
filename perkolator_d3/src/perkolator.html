@@ -23,22 +23,19 @@
 		svg {
 			background-color: white;
 		}
-
-
-
 	</style>
 </head>
 <body>
   <h1>Flip it up, Stack it down</h1>
-	<script type="text/javascript">
 
 
+  <script>
 
-		//Width and height
+		/* Width and height */
 		var w = 500;
 		var h = 300;
 
-		//Original data
+		/* Original data */
 		var dataset = [
 			[
 				{ x: 0, y: 5 },
@@ -63,14 +60,14 @@
 			]
 		];
 
-		//Set up stack method
+		/* Set up stack method */
 		var stack = d3.layout.stack()
 						.order("reverse");  //Flip the order
 
-		//Data, stacked
+		/* Data, stacked */
 		stack(dataset);
 
-		//Set up scales
+		/* Set up scales */
 		var xScale = d3.scale.ordinal()
 			.domain(d3.range(dataset[0].length))
 			.rangeRoundBands([0, w], 0.05);
@@ -85,16 +82,16 @@
 			])
 			.range([0, h]);
 
-		//Easy colors accessible via a 10-step ordinal scale
+		/* Easy colors accessible via a 10-step ordinal scale */
 		var colors = d3.scale.category10();
 
-		//Create SVG element
+		/* Create SVG element */
 		var svg = d3.select("body")
 					.append("svg")
 					.attr("width", w)
 					.attr("height", h);
 
-		// Add a group for each row of data
+		 /* Add a group for each row of data */
 		var groups = svg.selectAll("g")
 			.data(dataset)
 			.enter()
@@ -103,7 +100,7 @@
 				return colors(i);
 			});
 
-		// Add a rect for each data value
+		 /* Add a rect for each data value */
 		var rects = groups.selectAll("rect")
 			.data(function(d) { return d; })
 			.enter()
