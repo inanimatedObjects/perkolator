@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+  body {
+    background: lightyellow;
+  }
+  svg {
+    background: grey;
+    padding: 40px;
+    margin: 20px;
+    fill: white;
+   	font: 40px sans-serif;
+  }
+
+.arc text {
+  font: 20px sans-serif;
+  text-anchor: middle;
+  fill: white;
+}
+
+.arc path {
+  stroke: #fff;
+ }
+
+</style>
+<svg width="500" height="400"></svg>
+<div id="selected">comp selected</div>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+var svg = d3.select("svg"),
+    selected = d3.select("div#selected"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height"),
+    radius = Math.min(width, height) / 2,
+    g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+svg.append("text")
+  .attr("class", "text")
+  .text("Compensation Summary")
+  .attr("text-anchor", "inherit")
+
+
+var color = d3.scaleOrdinal(["#96c499", "#5c7a60", "#6b486b", "#bb81a9", "#d0743c", "#ff8c00"]);
+
+var data = [
+  {type:"cashSalary", fmv: 80000},
+  {type:"cashBonus", fmv: 40000},
+  {type:"grantEquity", fmv: 30000},
+  {type:"ESOP", fmv: 12000},
+  {type:"benfits", fmv: 18000},
+  {type:"401k", fmv: 9000}
+];
+
+var pie = d3.pie()
+    .sort(null)
+    .value(function(d) { return d.fmv; });
+
+var path = d3.arc()
+    .outerRadius(radius - 10)
+    .innerRadius(0);
+
+var label = d3.arc()
+    .outerRadius(radius - 70)
+    .innerRadius(radius - 30);
+
+var arc = g.selectAll(".arc")
+    .data(pie(data))
+    .enter().append("g")
+      .attr("class", "arc");
+
+arc.append("path")
+    .attr("d", path)
+    .attr("fill", function(d) { return color(d.data.type); })
+    .on("click",function(d) {
+      // rotation angle
+      var rotate = 180-(d.startAngle + d.endAngle)/2 / Math.PI * 180;
+
+      // pie transition
+      g.transition()
+        .attr("transform",  "translate(" + width / 2 + "," + height / 2 + ") rotate(" + rotate + ")")
+        .duration(1000);
+
+     // labels transition
+     text.transition()
+       .attr("transform", function(dd) {
+         return "translate(" + label.centroid(dd) + ") rotate(" + (-rotate) + ")"; })
+       .duration(1000);
+
+//   	selected.append('p')
+//       .append('text')
+//   		.text(function(d, i) {return i + 1; });
+
+});
+
+ var text = arc.append("text")
+      .attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
+      .attr("dy", "0.35em")
+      .text(function(d) { return d.data.type; });
+
+
+</script>
