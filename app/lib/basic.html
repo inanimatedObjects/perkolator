@@ -299,7 +299,7 @@ function renderPow(fn, min, max){
     createSvg();
 
     renderAxis(fn, d3.scalePow()
-                .exponent(2)
+                .exponent(1.5)
                 .domain([min, max])
                 .range([0, axisWidth]), 2);
 }
