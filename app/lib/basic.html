@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <style>
+    body {
+      margin:1%;
+      position:fixed;
+      top:0;
+      right:0;
+      bottom:0;
+      left:0;
+      font-family: monospace;
+    }
+    svg {
+      border: 1px solid pink;
+      margin: 0px;
+      background: lightblue;
+      border: 1px dashed cornflowerblue;
+      height: 90%;
+      width: 96%;
+    }
+    div {
+
+    }
+    #cardContainer {
+      border: 1px solid blue;
+      color: blue;
+      display: flex;
+      flex-direction: column;
+      margin: 2%;
+      font-size: 20px;
+      padding: 2px;
+      background: lightgray;
+      max-width: 70%;
+      max-height: 100%;
+      width: 100%;
+      padding-right: 55px;
+      padding-left: 5px;
+      margin-right: auto;
+      margin-left: auto;
+    }
+    .sliderContainer {
+      font-size: 10px;
+      display: inline-flex;
+      flex-direction: row;
+    }
+    .compType {
+      border: 1px dotted red;
+      margin-bottom: 1%;
+      color: red;
+      width: 100%;
+      background: pink;
+      padding: 2%;
+    }
+    .compSlider {
+      border: 1px dotted purple;
+      margin-bottom: 1%;
+      color: red;
+      width: 97%;
+      background: lavender;
+      padding: 4%;
+      margin-bottom: 10px;
+    }
+    .svgText {
+      background: none;
+      padding: 0px;
+      font-size: 26px;
+      font-family: monospace;
+    }
+    .axis {
+     padding: 0px;
+     font-size: 26px;
+     font-family: monospace;
+    }
+    svg rect {
+       stroke: steelblue;
+       fill: yellow;
+       stroke-width: 2;
+       opacity: 0.5;
+       shape-rendering: crispEdges;
+     }
+    svg line{
+       stroke: grey;
+       stroke-width: 2;
+     }
+    .dragSlider rect {
+      fill: gray;
+      shape-rendering: crispEdges;
+    }
+    .dragSlider line {
+      fill: none;
+      stroke: black;
+      stroke-width: 3px;
+    	opacity: 0.3;
+    	padding-top: 0px;
+      shape-rendering: crispEdges;
+    }
+    .driverValue {
+     display: inline-block;
+     width: 50px;
+     text-align: right;
+     padding: 10px;
+    }
+    #sliderValue {
+    }
+  </style>
+</head>
+
+<body>
+  <div class="control-group">
+    <button onclick="renderLinear(d3.axisBottom, min, max)">
+        render linear scale range
+    </button>
+    <button onclick="renderPow(d3.axisBottom, min, max)">
+        render power scale range
+    </button>
+  </div>
+  <div id="cardContainer">card Container</div>
+
+<script>
+  let holder = d3.select("#cardContainer")
+
+  holder.append("div")
+    .attr("class", "compType")
+    .text("compTon")
+
+  holder.append("p")
+  .append("label")
+    .attr("class", "sliderValue")
+    .attr("class", "driverValue")
+  .append("span")
+    .attr("id", "sliderVal")
+    .text("output:")
+
+  holder.append("div")
+    .attr("class", "compSlider")
+
+  let slider = holder.selectAll(".compSlider")
+
+  let min = 0,
+    max = 120;
+    //
+    // var margin = { top: 50, right: 0, bottom: 0, left: 20	},
+    //   width = 720 - margin.left - margin.right,
+    //   height = 221 - margin.top - margin.bottom,
+    //   svg = d3.select("#cardContainer")
+    // 			.append("svg")
+    //         .attr("width", width + margin.left + margin.right)
+    //         .attr("height", height + margin.top + margin.bottom)
+    //        .append('g')
+    //         .attr('transform', translate(margin.left + 32, margin.top + 85));
+    //
+    // var dragSlider = svg.append('g')
+    //     .attr("class", "dragSlider")
+    //     .call(d3.drag().on('drag', dragged));
+    //
+    // var rectWidth = 8;
+    // var rect = dragSlider.append("rect")
+    //     .attr("x", -rectWidth / 2 - 30)
+    //     .attr("y", -20)
+    //     .attr("width", rectWidth + 20)
+    //     .attr("height", 50)
+    //     .attr("stroke", "red")
+    //     .attr("stroke-width", "3px")
+    //     .attr("opacity", 0.3)
+    //
+    // var line = dragSlider.append("line")
+    //     .attr('y2', height)
+    //     .attr('x2', 0)
+    //     .attr('stroke-dasharray', '1,1')
+    // 		.attr('transform', translate(margin.left - 40, margin.top - 70))
+
+// ****** create range slider ******
+slider.append("span")
+.attr("class", "sliderContainer")
+.text("set min: ");
+
+slider.append("input")
+  .attr("id", "baseDriverMin")
+  .attr("type", "number")
+  .property("value", min);
+
+  slider.append("span")
+  .attr("class", "sliderContainer")
+  .text("set max");
+
+slider.append("input")
+  .attr("id", "baseDriverMax")
+  .attr("type", "number")
+  .property("value", max);
+
+  let height = 200,
+      width = 500,
+      margin = 70,
+      offset = 40,
+      axisWidth = width - 2 * margin;
+
+let svg = slider.append("svg")
+
+svg.append("g")
+	   .attr("class", "svgText")
+   .append("text")
+    .text("svg holder")
+    .attr("y", 30)
+    .attr("x", 150)
+
+function createSvg(){
+     svg = slider.append("svg")
+
+     svg.append("g")
+      .attr("class", "svgText")
+      .append("text")
+       .text("svg holder")
+       .attr("y", 30)
+       .attr("x", 20)
+    .append("g")
+        .attr("class", "axis")
+        .attr("width", width)
+        .attr("height", height);
+
+    svg.append("rect")
+        .attr("x", 40)
+        .attr("y", 50)
+        .attr("width", 20)
+        .attr("height", 50)
+        .attr("rx", 5);
+
+    svg.append("line")
+        .attr("x1", 50)
+        .attr("y1", 50)
+        .attr("x2", 50)
+        .attr("y2", 100);
+
+}
+
+
+function renderAxis(fn, scale, i){
+    var axis = fn()
+        .scale(scale)
+        .ticks(5);
+
+    svg.append("g")
+        .attr("transform", function(){
+                return "translate(" + offset + ", " +
+                                          margin + ")";
+        })
+        .call(axis);
+}
+
+// let sliderExtent = [0, 100];
+//
+let sMin,
+    sMax,
+    sValue = 100;
+
+// d3.select("#sliderValue").on("input", function() {
+//   updateSlider(+this.value);
+// });
+
+d3.select("#baseDriverMin").on("input", function() {
+  updateMin(+this.value);
+});
+
+d3.select("#baseDriverMax").on("input", function() {
+  updateMax(+this.value);
+});
+
+function updateSlider(sValue) {
+  d3.select("#sliderVal").text(sValue);
+  d3.select("#sliderValue").property("value", sValue)
+  // d3.select("#inputVal").property("value", sValue)
+  ;
+}
+
+function updateMin(sMin) {
+  d3.select("#baseDriverMin").property("value", sMin);
+  min = sMin;
+}
+
+function updateMax(sMax) {
+  d3.select("#baseDriverMax").property("value", sMax);
+  max = sMax;
+}
+
+function renderLinear(fn, min, max){
+    if(svg) svg.remove();
+
+    createSvg();
+
+    renderAxis(fn, d3.scaleLinear()
+                .domain([min, max])
+                .range([0, axisWidth]), 1);
+}
+
+function renderPow(fn, min, max){
+    if(svg) svg.remove();
+
+    createSvg();
+
+    renderAxis(fn, d3.scalePow()
+                .exponent(1.5)
+                .domain([min, max])
+                .range([0, axisWidth]), 2);
+}
+
+function translate(x, y) {
+    return 'translate(' + x + ',' + y + ')';
+}
+
+
+  </script>
+</body>
