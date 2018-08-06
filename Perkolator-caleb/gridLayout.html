@@ -229,48 +229,50 @@
   </div>
 
   <script>
+  let currDisplayVals = document.querySelectorAll('output.slider');
+  let displayValsArr = [];
+  // change currDisplayVals from a node list to an array
+  for (let i = currDisplayVals.length; i--; displayValsArr.unshift(currDisplayVals[i]));
+  // create sanitized array of display values
+  let dataArr = displayValsArr.map(function(d) {
+    return Number(d.innerHTML.split(',').join('').split('$').join(''));
+  });
+  // create an accumulating x-scale
+  let accumXScale = [0];
+  dataArr.reduce((a, b, i) => {
+    return accumXScale[i + 1] = a + b;
+  }, 0);
+  // store the total value of all cards
+  let dataTotal = accumXScale[accumXScale.length - 1];
 
-    // TODO: try to store data in session storage
-    // let storeData = (data) => {
-    //   if (typeof(Storage) !== 'undefined') {
-    //     sessionStorage.setItem('data', data);
-    //   }
-    // };
-    // storeData(data);
-    // console.log(sessionStorage.getItem('data'))
+  // // TODO: define color scale
+  let colorScale = d3.scaleLinear(d3.schemePaired)
+    .domain(d3.extent(data, (d) => { return d.max }))
+    .range(d3.extent(data, (d) => { return d.min }));
 
-    // // TODO: define color scale
-    let colorScale = d3.scaleLinear(d3.schemePaired)
-      .domain(d3.extent(data, (d) => { return d.max }))
-      .range(d3.extent(data, (d) => { return d.min }));
+  // render summary panel
+  let sumsArr = [];
+  renderSummaryPanel(data);
 
-    // render summary panel
-    renderSummaryPanel(data);
+  // render all cards
+  data.forEach((d) => {
+    renderCard(d);
+  })
 
-    // render all cards
-    data.forEach((d) => {
-      renderCard(d);
+  renderStackedBar(data);
+
+  function categorySums() {
+    let size = 3;
+    for (let i = 0; i < dataArr.length; i += size) {
+      sumsArr.push(dataArr.slice(i,i+size));
+    }
+    return sumsArr.map(d => {
+      return d.reduce((acc, curr) => {
+        return acc + curr
+      })
     })
-
-
-    let currDisplayVals = document.querySelectorAll('output.slider');
-    let displayValsArr = [];
-    // change currDisplayVals from a node list to an array
-    for (let i = currDisplayVals.length; i--; displayValsArr.unshift(currDisplayVals[i]));
-    // create sanitized array of display values
-    let dataArr = displayValsArr.map(function(d) {
-      return Number(d.innerHTML.split(',').join('').split('$').join(''));
-    });
-    // create an accumulating x-scale
-    let accumXScale = [0];
-    dataArr.reduce((a, b, i) => {
-      return accumXScale[i + 1] = a + b;
-    }, 0);
-    // store the total value of all cards
-    let dataTotal = accumXScale[accumXScale.length - 1];
-    renderStackedBar(data);
-
-
+    console.log('sumsArr', sumsArr);
+  }
 
   </script>
 

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: auto;
+  padding-top: 40px;
+  padding-left:2px;
+  position: fixed;
+  left: 10px;
+  width: 700px;
+}
+
+div {
+  padding: 10px;
+  border: 1px solid black;
+  background: #ededed;
+  }
+
+button {
+  position: fixed;
+  left: 10px;
+  top: 10px;
+}
+
+.bullet { font: 9px sans-serif; }
+.bullet .marker { stroke: #000; stroke-width: 2px; }
+.bullet .tick line { stroke: #666; stroke-width: .5px; }
+.bullet .range.s0 { fill: #fc96a5; }
+.bullet .range.s1 { fill: #fceab9; }
+.bullet .range.s2 { fill: #bcfcb5; }
+.bullet .measure.s0 { fill: #e6fbfd; }
+.bullet .measure.s1 { fill: #05666f; }
+.bullet .title { font-size: 10px; font-weight: bold; }
+.bullet .subtitle { fill: #999; }
+
+</style>
+
+<button>Update</button>
+<div id="container"><p>Full Clip</p></div>
+<!-- remove d3.v3 when possible (post usability testing) -->
+<script src="//d3js.org/d3.v3.min.js"></script>
+<!-- <script src="//d3js.org/d3.v4.min.js"></script> -->
+<script src="bullet.js"></script>
+
+<script>
+
+var margin = {top: 5, right: 40, bottom: 20, left: 120},
+    width = 560 - margin.left - margin.right,
+    height = 50 - margin.top - margin.bottom;
+
+var chart = d3.bullet()
+    .width(width)
+    .height(height);
+
+d3.json("bullets.json", function(error, data) {
+  if (error) throw error;
+
+  var svg = d3.select("#container").selectAll("svg")
+      .data(data)
+    .enter().append("svg")
+      .attr("class", "bullet")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+      .call(chart);
+
+  var title = svg.append("g")
+      .style("text-anchor", "end")
+      .attr("transform", "translate(-6," + height / 2 + ")");
+
+  title.append("text")
+      .attr("class", "title")
+      .text(function(d) { return d.title; });
+
+  title.append("text")
+      .attr("class", "subtitle")
+      .attr("dy", "1.2em")
+      .text(function(d) { return d.subtitle; });
+
+  d3.selectAll("button").on("click", function() {
+    svg.datum(randomize).call(chart.duration(1000)); // TODO automatic transition
+  });
+});
+
+function randomize(d) {
+  if (!d.randomizer) d.randomizer = randomizer(d);
+  d.ranges = d.ranges.map(d.randomizer);
+  d.markers = d.markers.map(d.randomizer);
+  d.measures = d.measures.map(d.randomizer);
+  return d;
+}
+
+function randomizer(d) {
+  var k = d3.max(d.ranges) * .2;
+  return function(d) {
+    return Math.max(0, d + k * (Math.random() - .5));
+  };
+}
+
+</script>
