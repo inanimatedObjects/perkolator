@@ -4,18 +4,26 @@
 
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  margin: auto;
-  padding-top: 40px;
-  padding-left:2px;
-  position: fixed;
-  left: 10px;
-  width: 700px;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  margin: 0px;
 }
 
-div {
-  padding: 10px;
+#container {
+  padding: 2px;
   border: 1px solid black;
-  background: #ededed;
+  /* background-color: #b0fcf2;
+  background-image: url("https://www.transparenttextures.com/patterns/dark-stripes.png"); */
+  /* background-color: #f0faf8; */
+    /* background-color: #fffbf5; */
+/* background-image: url("https://www.transparenttextures.com/patterns/egg-shell.png"); */
+  /* background-color: #d1d1d1;
+  background-image: url("https://www.transparenttextures.com/patterns/dark-leather.png"); */
+  background-color: #a5c7b1;
+background-image: url("https://www.transparenttextures.com/patterns/dark-geometric.png");
+  /* background-color: #647378;
+  background-image: url("https://www.transparenttextures.com/patterns/clean-textile.png"); */
   }
 
 button {
@@ -24,20 +32,60 @@ button {
   top: 10px;
 }
 
+p {
+    padding-left: 10px;
+}
+
+.bulletContainer {
+    border: 1px solid black;
+    margin: 10px;
+    padding-top: 60px;
+}
+
 .bullet { font: 9px sans-serif; }
-.bullet .marker { stroke: #000; stroke-width: 2px; }
-.bullet .tick line { stroke: #666; stroke-width: .5px; }
+.bullet .handle.s0 { fill: grey; opacity: 0.3;}
+.bullet .handle.s1 {
+  fill: white;
+  opacity: 0.5;
+  border: red solid 1px;
+  }
+.bullet .marker.s0 {
+  stroke: blue;
+  stroke-width: 1.5px;
+  opacity:0.4;
+}
+.bullet .marker.s1 {
+  stroke: red;
+  stroke-width: 2.0px;
+  opacity:0.6;
+}
+.bullet .tick { fill:  #E3E0DB; stroke-width: 1.5px; }
+.bullet .tick line { stroke: #F3FFEC; stroke-width: 1.5px; }
 .bullet .range.s0 { fill: #fc96a5; }
 .bullet .range.s1 { fill: #fceab9; }
 .bullet .range.s2 { fill: #bcfcb5; }
-.bullet .measure.s0 { fill: #e6fbfd; }
+.bullet .measure.s0 { fill: #fffbf5; }
 .bullet .measure.s1 { fill: #05666f; }
-.bullet .title { font-size: 10px; font-weight: bold; }
-.bullet .subtitle { fill: #999; }
+.bullet .title {
+  font-size: 14px;
+  font-weight: bold;
+  fill: white;
+  text-shadow: 2px 2px 18px black, 0 0 10px green;
+}
+.bullet .subtitle {
+  fill: white;
+  text-shadow: 1px 1px 2px black, 0px 0px 3px red, 0 0 7px darkred;
+}
+.bullet .term {
+  font-size: 20px;
+  font-weight: bold;
+  fill: white;
+  text-shadow: 1px 1px 2px black, 0 0 10px blue, 0 0 5px darkblue;
+}
 
 </style>
 
-<button>Update</button>
+<button>Animate</button>
 <div id="container"><p>Full Clip</p></div>
 <!-- remove d3.v3 when possible (post usability testing) -->
 <script src="//d3js.org/d3.v3.min.js"></script>
@@ -46,30 +94,85 @@ button {
 
 <script>
 
-var margin = {top: 5, right: 40, bottom: 20, left: 120},
-    width = 560 - margin.left - margin.right,
-    height = 50 - margin.top - margin.bottom;
+var margin = {top: -15, right: 20, bottom: 38, left: 20},
+    width = 400 - margin.left - margin.right,
+    height = 40 - margin.top - margin.bottom,
+    labelWidth = -10,
+    labelHeight = -height - margin.top - margin.bottom + 10;
 
 var chart = d3.bullet()
     .width(width)
-    .height(height);
+    .height(height );
 
-d3.json("bullets.json", function(error, data) {
-  if (error) throw error;
+var data1 = [
+  {
+    "title":"Cash Compensation",
+    "subtitle":"US$, in thousands",
+    "ranges":[70,155,200],
+    "measures":[120,190],
+    "markers":[150]},
+  {
+    "title":"Equity Compensation",
+    "subtitle":"US$, present value",
+    "ranges":[5,35,70],
+    "measures":[30,68],
+    "markers":[30]},
+
+  {
+    "title":"Benefits",
+    "subtitle":"$US, fair market value",
+    "ranges":[5,20,30],
+    "measures":[10,29],
+    "markers":[5, 11]},
+  {
+    "title":"Compensation Ratio",
+    "subtitle":"%, eash/equity",
+    "ranges":[15,50,103],
+    "measures":[71,100],
+    "markers":[80]},
+  {
+    "title":"Overall Offer Value",
+    "subtitle":"US$, FMV of all comp forms",
+    "ranges":[80,210,300],
+    "measures":[170,287],
+    "markers":[200]}
+];
+
+data1[0].markers = [150,180];
+
+data1[1].markers = [30,42];
+
+data1[2].markers = [6,18];
+
+data1[3].markers = [50, 51];
+
+data1[4].markers = [12,18];
+
+
+function render(data) {
+
+  // d3.json("bullets.json", function(error, data) {
+  //   if (error) throw error;
+
+    console.log(data);
 
   var svg = d3.select("#container").selectAll("svg")
       .data(data)
     .enter().append("svg")
+      .attr("class", "bulletContainer")
+      .attr("width", width + margin.left + margin.right )
+      .attr("height", "20px")
+    .append("g")
       .attr("class", "bullet")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
+      .attr("width", width)
+      .attr("height", height)
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
       .call(chart);
 
   var title = svg.append("g")
-      .style("text-anchor", "end")
-      .attr("transform", "translate(-6," + height / 2 + ")");
+      .style("text-anchor", "start")
+      .attr("transform", "translate(" + labelWidth +", " + labelHeight + ")");
 
   title.append("text")
       .attr("class", "title")
@@ -77,13 +180,25 @@ d3.json("bullets.json", function(error, data) {
 
   title.append("text")
       .attr("class", "subtitle")
-      .attr("dy", "1.2em")
+      .attr("dy", "1.5em")
       .text(function(d) { return d.subtitle; });
+
+  title.append("text")
+      .attr("class", "term")
+      .attr("dy", "0.4em")
+      .attr("dx", width/2)
+      .text(function(d) {
+        if (d.title !== "Comp Ratio") {
+          return "$" + d.markers[0] + "k";
+        } else {
+          return d.markers[0] + "%"; }
+        });
 
   d3.selectAll("button").on("click", function() {
     svg.datum(randomize).call(chart.duration(1000)); // TODO automatic transition
   });
-});
+};
+
 
 function randomize(d) {
   if (!d.randomizer) d.randomizer = randomizer(d);
@@ -99,5 +214,6 @@ function randomizer(d) {
     return Math.max(0, d + k * (Math.random() - .5));
   };
 }
+render(data1);
 
 </script>
