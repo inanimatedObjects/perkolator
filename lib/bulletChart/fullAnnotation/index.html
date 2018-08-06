@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: auto;
+  padding-top: 40px;
+  padding-left:2px;
+  position: fixed;
+  left: 10px;
+  width: 700px;
+}
+
+div {
+  padding: 10px;
+  border: 1px solid black;
+  background: #ededed;
+  }
+
+button {
+  position: fixed;
+  left: 10px;
+  top: 10px;
+}
+
+.bullet { font: 9px sans-serif; }
+.bullet .marker { stroke: #000; stroke-width: 2px; }
+.bullet .tick line { stroke: #666; stroke-width: .5px; }
+.bullet .range.s0 { fill: #fc96a5; }
+.bullet .range.s1 { fill: #fceab9; }
+.bullet .range.s2 { fill: #bcfcb5; }
+.bullet .measure.s0 { fill: #e6fbfd; }
+.bullet .measure.s1 { fill: #05666f; }
+.bullet .title { font-size: 10px; font-weight: bold; }
+.bullet .subtitle { fill: #999; }
+
+</style>
+
+<button>Update</button>
+<div id="container"><p>Full Clip</p></div>
+<!-- remove d3.v3 when possible (post usability testing) -->
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script src="//d3js.org/d3.v4.min.js"></script>
+<script src="bullet.js"></script>
+
+<script>
+
+// create viz container
+var margin = {top: 5, right: 40, bottom: 20, left: 120},   // set viz border dimenstions within viz-container frame
+    width = 560 - margin.left - margin.right,  // fit chart horizontally within viz-container frame
+    height = 50 - margin.top - margin.bottom;   // fit chart vertically within viz-container frame
+
+var chart = d3.bullet()   // invoke the bullet function from the 'bullet.js' API
+    .width(width)     // bind aforementioned dimensions to newly created bullet chart
+    .height(height);
+
+
+// load data and bind the loaded data to DOM elements
+d3.json("bullets.json", function(error, data) {   // load external JSON data
+  if (error) throw error;     // error required for callback
+
+  var svg = d3.select("#container").selectAll("svg")      //  use D3 to select DOM container to be used for the bullet viz
+      .data(data)    // use D3 to select the loaded JSON data to be used for the bullet viz
+    .enter().append("svg")   //  bind the loaded JSON data to SVGs just selected, create additional SVGs if necessary to match data
+      .attr("class", "bullet")    // attach a 'bullet' label to each and every SVG just selected (both new & pre-existing SVGs)
+      .attr("width", width + margin.left + margin.right)    // set the horizontal width of overall outer frame
+      .attr("height", height + margin.top + margin.bottom)  // set the vertical height of overall outer frame
+    .append("g")   // append each element in the data array to its own newly created G element within the SVG parent
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")   // set origin coordinate for (x0, y0) for all G elements to the upper left coordinate of the inside frame
+      .call(chart);   // now instantiate this chart
+
+  var title = svg.append("g")     // attach the chart title text to its own G at the top of the chart's viz container
+      .style("text-anchor", "end")      // assign the placement of the origin coordinate for the text string to be rendered (i.e. on the right-side of the block of text)
+      .attr("transform", "translate(-6," + height / 2 + ")");    // set that origin point to the upper left corner of the inside frame
+
+  title.append("text")  // create a title text for each bullet  (e.g. 'cash compensation', etc)
+      .attr("class", "title")  // assign a class of 'title' to each of the newly created <SVG><TEXT> elements
+      .text(function(d) { return d.title; });   // iterate through the JSON data object and return each of the values for the 'title' key and bind them to their respective newly created <SVG><TEXT> element
+
+  title.append("text")  // create a subtitle text for each bullet  (e.g. 'cash compensation', etc)
+      .attr("class", "subtitle")    // assign a class of 'subtitle' to each of the newly created <SVG><TEXT> elements
+      .attr("dy", "1.2em")      // set how much vertical space below the 'title' text to render the 'subtitle'  (i.e. both start at the same origin coordinate so need to change the y origin point so text does not overlap
+      .text(function(d) { return d.subtitle; });     // iterate through the JSON data object and return each of the values for the 'subtitle' key and bind them to their respective newly created <SVG><TEXT> element
+
+  d3.selectAll("button").on("click", function() {    // assign the onclick function to the HTML <button>
+    svg.datum(randomize).call(chart.duration(1000)); // TODO automatic transition
+  });
+});
+
+function randomize(d) {
+  if (!d.randomizer) d.randomizer = randomizer(d);
+  d.ranges = d.ranges.map(d.randomizer);
+  d.markers = d.markers.map(d.randomizer);
+  d.measures = d.measures.map(d.randomizer);
+  return d;
+}
+
+function randomizer(d) {
+  var k = d3.max(d.ranges) * .2;
+  return function(d) {
+    return Math.max(0, d + k * (Math.random() - .5));
+  };
+}
+
+</script>

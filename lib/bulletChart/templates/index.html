@@ -6,17 +6,10 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: auto;
   padding-top: 40px;
-  padding-left:2px;
   position: fixed;
   left: 10px;
-  width: 700px;
+  width: 560px;
 }
-
-div {
-  padding: 10px;
-  border: 1px solid black;
-  background: #ededed;
-  }
 
 button {
   position: fixed;
@@ -24,30 +17,25 @@ button {
   top: 10px;
 }
 
-.bullet { font: 9px sans-serif; }
+.bullet { font: 10px sans-serif; }
 .bullet .marker { stroke: #000; stroke-width: 2px; }
 .bullet .tick line { stroke: #666; stroke-width: .5px; }
-.bullet .range.s0 { fill: #fc96a5; }
-.bullet .range.s1 { fill: #fceab9; }
-.bullet .range.s2 { fill: #bcfcb5; }
-.bullet .measure.s0 { fill: #e6fbfd; }
-.bullet .measure.s1 { fill: #05666f; }
-.bullet .title { font-size: 10px; font-weight: bold; }
+.bullet .range.s0 { fill: #eee; }
+.bullet .range.s1 { fill: #ddd; }
+.bullet .range.s2 { fill: #ccc; }
+.bullet .measure.s0 { fill: lightsteelblue; }
+.bullet .measure.s1 { fill: steelblue; }
+.bullet .title { font-size: 14px; font-weight: bold; }
 .bullet .subtitle { fill: #999; }
 
 </style>
-
 <button>Update</button>
-<div id="container"><p>Full Clip</p></div>
-<!-- remove d3.v3 when possible (post usability testing) -->
 <script src="//d3js.org/d3.v3.min.js"></script>
-<!-- <script src="//d3js.org/d3.v4.min.js"></script> -->
 <script src="bullet.js"></script>
-
 <script>
 
 var margin = {top: 5, right: 40, bottom: 20, left: 120},
-    width = 560 - margin.left - margin.right,
+    width = 460 - margin.left - margin.right,
     height = 50 - margin.top - margin.bottom;
 
 var chart = d3.bullet()
@@ -57,7 +45,7 @@ var chart = d3.bullet()
 d3.json("bullets.json", function(error, data) {
   if (error) throw error;
 
-  var svg = d3.select("#container").selectAll("svg")
+  var svg = d3.select("body").selectAll("svg")
       .data(data)
     .enter().append("svg")
       .attr("class", "bullet")
@@ -77,7 +65,7 @@ d3.json("bullets.json", function(error, data) {
 
   title.append("text")
       .attr("class", "subtitle")
-      .attr("dy", "1.2em")
+      .attr("dy", "1em")
       .text(function(d) { return d.subtitle; });
 
   d3.selectAll("button").on("click", function() {
