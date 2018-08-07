@@ -8,10 +8,12 @@ body {
   height: 100%;
   padding: 20px;
   margin: 0px;
+  /* position:fixed; */
 }
 
 #container {
   padding: 2px;
+  margin-right:3%;
   border: 1px solid black;
   /* background-color: #b0fcf2;
   background-image: url("https://www.transparenttextures.com/patterns/dark-stripes.png"); */
@@ -25,6 +27,26 @@ background-image: url("https://www.transparenttextures.com/patterns/dark-geometr
   /* background-color: #647378;
   background-image: url("https://www.transparenttextures.com/patterns/clean-textile.png"); */
   }
+
+#dragDiv {
+  font-size: 10px;
+  border-radius: 3px;
+  box-shadow: 0 0 5px #999;
+  padding: 10px;
+  pointer-events: 'none';
+  opacity:0.5;
+  background-color: blue;
+  position: absolute;
+}
+
+abbr {
+  font-style: italic;
+  font-weight: 100;
+}
+#panel {
+  min-width: min-content;
+  max-width: 400px;
+}
 
 button {
   position: fixed;
@@ -48,6 +70,8 @@ p {
   fill: white;
   opacity: 0.5;
   border: red solid 1px;
+  pointer-events: 'none';
+  position: absolute;
   }
 .bullet .marker.s0 {
   stroke: blue;
@@ -85,17 +109,65 @@ p {
 
 </style>
 
-<button>Animate</button>
+<div><button>Animate</button></div>
 <div id="container"><p>Full Clip</p></div>
-<!-- remove d3.v3 when possible (post usability testing) -->
-<script src="//d3js.org/d3.v3.min.js"></script>
-<!-- <script src="//d3js.org/d3.v4.min.js"></script> -->
+<!-- TODO: add setting html inputs -->
+
+
+<div>
+<video id="dragDiv" width="350">
+    <source src="" type="video/webm">
+</video>
+</div>
+
+
+<form id="panel">
+  <fieldset>
+    <legend>Comp Type => { <abbr title="base salary considered: all cash payments where amount balance is calculated using any fixed-multiplier on a time-based factor">base salary</abbr> }</legend>
+    <label for="rangeSlider">
+      <strong><dfn id="slider"><abbr title="This component contains the inputs & drivers involved determining the value of a distinct compensation category.">comp type</abbr> category drivers<br></dfn></strong>
+        { <abbr title="base salary considered: all cash payments where amount balance is calculated using any fixed-multiplier on a time-based factor">base salary</abbr> }
+          compensation is considered anything matching ALL of the following criteria: <br>
+          <br>1. payment amount is determined mathematically using a defined cash{flowRate} and time{periodInterval} as its functional arguments<br>
+          <br>2. Payments are
+            <dfn id="recurring">
+               <abbr title="an arrangement which repeats according to a pre-defined interval cycle. ">recurring
+               </abbr>
+            </dfn></strong> and <strong>
+            <dfn id="ongoing">
+              <abbr title="an active arrangement of recurring cyclical payments that will continue to occur in perpetuity until termination is elected voluntairly or occurs via some termination trigger event function. ">on-going
+              </abbr>
+            </dfn></strong> for the
+            <dfn id="foreseeable">
+              <abbr title="the stable income rate which is earned in the form of cash compensation">foreseeable future
+              </abbr>
+            </dfn></strong><br>
+          <br>often denominated in: <code><a href="#dope"> &lt;daps&gt;</a></code> & <code><a href="#dope"> &lt;pounds&gt;</a></code>
+    </label><br><br>
+    <input id="rangeSlider" type=range name="rangeSlider"><br>
+    <input id="rangeValue" type=number name="rangeValue"><br>
+
+    <!-- <p><button id="rangeSettings" style="margin:10px;" onclick="toggle()">edit range settings</button><br>
+    </p> -->
+    <p>Adjust the slider to set the amount of compensation to any value within the <strong><dfn id="zopa"><abbr title="Zone of Potential Agreement">ZOPA</abbr> (see: <code><a href="#zopa">#ZOPA</a></code>)</dfn></strong><br> Note that the types of compensation are ultimately interrelated. Therefore in order to maintain the same <strong><em>aggregate compensation total</em></strong> increasing the amount of one type of comp will require a reduction in another comp type if the two share an <strong>inverse relationship</strong> <br><br>Now go get that paper, homie!</p>
+  </fieldset>
+</form>
+
+<!-- <div><button id="rangeSettings" style="margin:10px;" onclick="toggle()">edit range settings</button><br></div> -->
+
+<!-- <video id="div" width="350">
+    <source src="" type="video/webm">
+</video> -->
+
+
+<script src="//d3js.org/d3.v4.min.js"></script>
 <script src="bullet.js"></script>
 
 <script>
 
 var margin = {top: -15, right: 20, bottom: 38, left: 20},
     width = 400 - margin.left - margin.right,
+    // NOTE: abstract out 400
     height = 40 - margin.top - margin.bottom,
     labelWidth = -10,
     labelHeight = -height - margin.top - margin.bottom + 10;
@@ -125,8 +197,8 @@ var data1 = [
     "measures":[10,29],
     "markers":[5, 11]},
   {
-    "title":"Compensation Ratio",
-    "subtitle":"%, eash/equity",
+    "title":"Comp Ratio",
+    "subtitle":"%, cash/equity",
     "ranges":[15,50,103],
     "measures":[71,100],
     "markers":[80]},
@@ -142,11 +214,13 @@ data1[0].markers = [150,180];
 
 data1[1].markers = [30,42];
 
-data1[2].markers = [6,18];
+data1[2].markers = [16,18];
 
 data1[3].markers = [50, 51];
 
 data1[4].markers = [12,18];
+
+
 
 
 function render(data) {
@@ -154,7 +228,7 @@ function render(data) {
   // d3.json("bullets.json", function(error, data) {
   //   if (error) throw error;
 
-    console.log(data);
+    // console.log(data);
 
   var svg = d3.select("#container").selectAll("svg")
       .data(data)
@@ -166,7 +240,7 @@ function render(data) {
       .attr("class", "bullet")
       .attr("width", width)
       .attr("height", height)
-    .append("g")
+    // .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
       .call(chart);
 
@@ -177,6 +251,7 @@ function render(data) {
   title.append("text")
       .attr("class", "title")
       .text(function(d) { return d.title; });
+
 
   title.append("text")
       .attr("class", "subtitle")
@@ -194,11 +269,52 @@ function render(data) {
           return d.markers[0] + "%"; }
         });
 
+  let slider = d3.select("#container").selectAll('text')
+  .call(d3.drag()
+  .on('start.interrupt', function () {
+    slider.interrupt();
+    console.log('stop')
+  })
+  .on('start drag', function () {
+    console.log('drag')
+    slider.style('top', d3.event.y + 'px')
+    slider.style('left', d3.event.x + 'px')
+  }));
+
+  let div = d3.select('#dragDiv')
+  .call(d3.drag()
+  .on('start.interrupt', function () {
+    div.interrupt();
+    console.log('stop')
+  })
+  .on('start drag', function () {
+    console.log('drag')
+    div.style('top', d3.event.y + 'px')
+    div.style('left', d3.event.x + 'px')
+  }));
+
   d3.selectAll("button").on("click", function() {
     svg.datum(randomize).call(chart.duration(1000)); // TODO automatic transition
   });
 };
 
+
+
+
+// implement drag event lister
+
+
+var fieldset = d3.select("#panel").select("fieldset");
+
+function toggle() {
+   if (!fieldset.property("disabled")) {
+     return fieldset.property("disabled", function(){return true;})
+     .style("background-color", "#e9967a");
+   } else {
+     return fieldset.property("disabled", function(){return false;})
+     .style("background-color", "#add8e6");
+   }
+}
 
 function randomize(d) {
   if (!d.randomizer) d.randomizer = randomizer(d);
