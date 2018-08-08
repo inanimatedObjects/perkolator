@@ -120,46 +120,6 @@ p {
 </video>
 </div>
 
-
-<form id="panel">
-  <fieldset>
-    <legend>Comp Type => { <abbr title="base salary considered: all cash payments where amount balance is calculated using any fixed-multiplier on a time-based factor">base salary</abbr> }</legend>
-    <label for="rangeSlider">
-      <strong><dfn id="slider"><abbr title="This component contains the inputs & drivers involved determining the value of a distinct compensation category.">comp type</abbr> category drivers<br></dfn></strong>
-        { <abbr title="base salary considered: all cash payments where amount balance is calculated using any fixed-multiplier on a time-based factor">base salary</abbr> }
-          compensation is considered anything matching ALL of the following criteria: <br>
-          <br>1. payment amount is determined mathematically using a defined cash{flowRate} and time{periodInterval} as its functional arguments<br>
-          <br>2. Payments are
-            <dfn id="recurring">
-               <abbr title="an arrangement which repeats according to a pre-defined interval cycle. ">recurring
-               </abbr>
-            </dfn></strong> and <strong>
-            <dfn id="ongoing">
-              <abbr title="an active arrangement of recurring cyclical payments that will continue to occur in perpetuity until termination is elected voluntairly or occurs via some termination trigger event function. ">on-going
-              </abbr>
-            </dfn></strong> for the
-            <dfn id="foreseeable">
-              <abbr title="the stable income rate which is earned in the form of cash compensation">foreseeable future
-              </abbr>
-            </dfn></strong><br>
-          <br>often denominated in: <code><a href="#dope"> &lt;daps&gt;</a></code> & <code><a href="#dope"> &lt;pounds&gt;</a></code>
-    </label><br><br>
-    <input id="rangeSlider" type=range name="rangeSlider"><br>
-    <input id="rangeValue" type=number name="rangeValue"><br>
-
-    <!-- <p><button id="rangeSettings" style="margin:10px;" onclick="toggle()">edit range settings</button><br>
-    </p> -->
-    <p>Adjust the slider to set the amount of compensation to any value within the <strong><dfn id="zopa"><abbr title="Zone of Potential Agreement">ZOPA</abbr> (see: <code><a href="#zopa">#ZOPA</a></code>)</dfn></strong><br> Note that the types of compensation are ultimately interrelated. Therefore in order to maintain the same <strong><em>aggregate compensation total</em></strong> increasing the amount of one type of comp will require a reduction in another comp type if the two share an <strong>inverse relationship</strong> <br><br>Now go get that paper, homie!</p>
-  </fieldset>
-</form>
-
-<!-- <div><button id="rangeSettings" style="margin:10px;" onclick="toggle()">edit range settings</button><br></div> -->
-
-<!-- <video id="div" width="350">
-    <source src="" type="video/webm">
-</video> -->
-
-
 <script src="//d3js.org/d3.v4.min.js"></script>
 <script src="bullet.js"></script>
 
