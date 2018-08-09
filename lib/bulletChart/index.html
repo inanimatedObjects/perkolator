@@ -8,25 +8,16 @@ body {
   height: 100%;
   padding: 20px;
   margin: 0px;
-  /* position:fixed; */
+  background: grey;
 }
 
 #container {
   padding: 2px;
   margin-right:3%;
   border: 1px solid black;
-  /* background-color: #b0fcf2;
-  background-image: url("https://www.transparenttextures.com/patterns/dark-stripes.png"); */
-  /* background-color: #f0faf8; */
-    /* background-color: #fffbf5; */
-/* background-image: url("https://www.transparenttextures.com/patterns/egg-shell.png"); */
-  /* background-color: #d1d1d1;
-  background-image: url("https://www.transparenttextures.com/patterns/dark-leather.png"); */
   background-color: #a5c7b1;
-background-image: url("https://www.transparenttextures.com/patterns/dark-geometric.png");
-  /* background-color: #647378;
-  background-image: url("https://www.transparenttextures.com/patterns/clean-textile.png"); */
-  }
+  background-image: url("https://www.transparenttextures.com/patterns/dark-geometric.png");
+}
 
 #dragDiv {
   font-size: 10px;
@@ -35,7 +26,7 @@ background-image: url("https://www.transparenttextures.com/patterns/dark-geometr
   padding: 10px;
   pointer-events: 'none';
   opacity:0.5;
-  background-color: blue;
+  background-color: lightgrey;
   position: absolute;
 }
 
@@ -43,6 +34,7 @@ abbr {
   font-style: italic;
   font-weight: 100;
 }
+
 #panel {
   min-width: min-content;
   max-width: 400px;
@@ -64,8 +56,15 @@ p {
     padding-top: 60px;
 }
 
-.bullet { font: 9px sans-serif; }
-.bullet .handle.s0 { fill: grey; opacity: 0.3;}
+.bullet {
+  font: 9px sans-serif;
+}
+
+.bullet .handle.s0 {
+  fill: grey;
+  opacity: 0.3;
+}
+
 .bullet .handle.s1 {
   fill: white;
   opacity: 0.5;
@@ -73,23 +72,42 @@ p {
   pointer-events: 'none';
   position: absolute;
   }
+
 .bullet .marker.s0 {
   stroke: blue;
   stroke-width: 1.5px;
   opacity:0.4;
 }
+
 .bullet .marker.s1 {
   stroke: red;
   stroke-width: 2.0px;
   opacity:0.6;
 }
-.bullet .tick { fill:  #E3E0DB; stroke-width: 1.5px; }
-.bullet .tick line { stroke: #F3FFEC; stroke-width: 1.5px; }
-.bullet .range.s0 { fill: #fc96a5; }
-.bullet .range.s1 { fill: #fceab9; }
-.bullet .range.s2 { fill: #bcfcb5; }
-.bullet .measure.s0 { fill: #fffbf5; }
-.bullet .measure.s1 { fill: #05666f; }
+
+.bullet .tick {
+  fill:  #E3E0DB;
+  stroke-width: 1.5px;
+}
+.bullet .tick line {
+  stroke: #F3FFEC;
+  stroke-width: 1.5px;
+}
+.bullet .range.s0 {
+  fill: #fc96a5;
+}
+.bullet .range.s1 {
+  fill: #fceab9;
+}
+.bullet .range.s2 {
+  fill: #bcfcb5;
+}
+.bullet .measure.s0 {
+  fill: #fffbf5;
+}
+.bullet .measure.s1 {
+  fill: #05666f;
+}
 .bullet .title {
   font-size: 14px;
   font-weight: bold;
@@ -109,7 +127,7 @@ p {
 
 </style>
 
-<div><button>Animate</button></div>
+<div><button>Random data Animater</button></div>
 <div id="container"><p>Full Clip</p></div>
 <!-- TODO: add setting html inputs -->
 
@@ -182,13 +200,10 @@ data1[4].markers = [12,18];
 
 
 
-
 function render(data) {
 
   // d3.json("bullets.json", function(error, data) {
   //   if (error) throw error;
-
-    // console.log(data);
 
   var svg = d3.select("#container").selectAll("svg")
       .data(data)
@@ -200,7 +215,6 @@ function render(data) {
       .attr("class", "bullet")
       .attr("width", width)
       .attr("height", height)
-    // .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
       .call(chart);
 
@@ -211,7 +225,6 @@ function render(data) {
   title.append("text")
       .attr("class", "title")
       .text(function(d) { return d.title; });
-
 
   title.append("text")
       .attr("class", "subtitle")
@@ -229,36 +242,22 @@ function render(data) {
           return d.markers[0] + "%"; }
         });
 
-  let slider = d3.select("#container").selectAll('text')
-  .call(d3.drag()
-  .on('start.interrupt', function () {
-    slider.interrupt();
-    console.log('stop')
-  })
-  .on('start drag', function () {
-    console.log('drag')
-    slider.style('top', d3.event.y + 'px')
-    slider.style('left', d3.event.x + 'px')
-  }));
-
   let div = d3.select('#dragDiv')
-  .call(d3.drag()
-  .on('start.interrupt', function () {
+    .call(d3.drag()
+    .on('start.interrupt', function () {
     div.interrupt();
     console.log('stop')
-  })
-  .on('start drag', function () {
+    })
+    .on('start drag', function () {
     console.log('drag')
-    div.style('top', d3.event.y + 'px')
-    div.style('left', d3.event.x + 'px')
-  }));
+      div.style('top', d3.event.y + 150 + 'px')
+      div.style('left', d3.event.x - 180 + 'px')
+  } ));
 
   d3.selectAll("button").on("click", function() {
-    svg.datum(randomize).call(chart.duration(1000)); // TODO automatic transition
+    svg.datum(randomize).call(chart.duration(1000));
   });
 };
-
-
 
 
 // implement drag event lister
