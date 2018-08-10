@@ -1,32 +1,253 @@
 <!doctype html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <title>Perkolater</title>
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-      <link rel="stylesheet" href="./d3/style.css"></style>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
-  crossorigin="anonymous">
-    <!-- <link rel=”stylesheet” href=”css/style.css”> -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="./d3/src/style.css"></style>
   </head>
-  <body>
-    <!-- <h1>Perkolator</h1>
-    <svg id="summaryPanel"></svg>
-    <svg id="stackedBarPanel"></svg>
-    <svg id="driverPanel"></svg>
-    <svg id="analyticsPanel"></svg> -->
-    <br><br><br>
-    <footer class="footer">
-      <div class="footer__legal">
-        <i class="fa fa-code"></i> by inanimatedObjects
-      </div>
-      <svg id="perkolator"></svg>
-    </footer>
 
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="d3/timer.js"></script>
-    <script src="d3/bullet.js"></script>
-    <script src="d3/d3.js"></script>
-  </body>
+<body>
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+
+
+  <div id="root">
+    <div class="list-group d-inline-block d-flex flex-row">
+      <h6><span id="appNameArticle">The</span></h6>
+      <h1><span id="appName">Perkolator</span></h1>
+      <h3 id="appMotto">they just made you a job offer, should you negotiate?</h3>
+    </div>
+    <h5 id="appDescription" class=""><span>| interactive comprehensive compensation calculator |</span></h5>
+
+    <div id="firstPanel" class="panel">
+      <svg id="summaryPanel"></svg>
+    </div>
+
+    <div id="secondPanel" class="panel">
+      <svg id="stackedBarPanel"></svg>
+    </div>
+
+    <div id="thirdPanel"  class="panel">
+      <svg id="driverPanel"></svg>
+    </div>
+
+    <div id="fourthPanel"  class="panel">
+      <svg id="analyticsPanel"></svg>
+    </div>
+
+  </div>
+
+  <br>
+
+  <div>
+      <div class="container">
+          <div class="row">
+              <div class="col-md-12 d-table my-auto">
+                  <div class="d-table-row"><a class="btn btn-light btn-block" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" role="button" href="#collapse-1" style="background-color:rgba(0,123,255,0.32);height:24px;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;font-size:16px;color:rgba(1,1,1,0.37);">Edit Slider Ranges</a>
+                      <div
+                          class="collapse show" id="collapse-1">
+                          <p class="card-text">Adjust the high/low endpoints of the respective ranges for each compensation type and payment interval&nbsp;</p>
+                          <div role="tablist" id="accordion-1">
+                              <div class="card">
+                                  <div class="card-header" role="tab" style="background-color:rgba(0,153,61,0.53);">
+                                      <h5 class="text-center mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordion-1 .item-1" href="div#accordion-1 .item-1" style="color:rgb(0,91,14);">Cash Compensation</a></h5>
+                                  </div>
+                                  <div class="collapse show item-1" role="tabpanel" data-parent="#accordion-1">
+                                      <div class="card-body">
+                                          <div class="row">
+                                              <div class="col d-flex flex-row justify-content-start" style="background-color:#2e2e2e;color:rgb(255,255,255);">
+                                                  <p class="my-auto">Set Range Endpoints</p>
+                                              </div>
+                                              <div class="col" style="background-color:#dcdcdc;">
+                                                  <p class="d-flex justify-content-center my-auto">Low End</p>
+                                              </div>
+                                              <div class="col" style="background-color:#545353;color:rgb(255,255,255);">
+                                                  <p class="d-flex justify-content-center my-auto">High End</p>
+                                              </div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="col">
+                                                  <p class="d-flex flex-row justify-content-end my-auto" style="font-size:14px;padding-top:6px;">Signing Bonus</p>
+                                              </div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:rgba(225,249,225,0.45);"></div>
+                                              <div class="col d-flex align-content-center align-self-center" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:rgba(1,57,1,0.5);color:#ffffff;"></div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="col">
+                                                  <p class="d-flex justify-content-end my-auto" style="padding-top:6px;font-size:14px;">Base Salary</p>
+                                              </div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:rgba(225,249,225,0.45);"></div>
+                                              <div class="col d-flex align-content-center align-self-center" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="100" style="background-color:rgba(1,57,1,0.5);color:#ffffff;"></div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="col d-flex justify-content-end my-auto">
+                                                  <p class="d-flex justify-content-end my-auto" style="font-size:14px;padding-top:6px;">Performance/Incentive Bonus</p>
+                                              </div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:rgba(225,249,225,0.45);"></div>
+                                              <div class="col d-flex" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="100" style="background-color:rgba(1,57,1,0.5);color:#ffffff;"></div>
+                                          </div>
+                                          <p class="card-text" style="font-size:8px;padding-top:20px;padding-left:-5px;">note to employers: Greatest utility is achieved when endpoints are set the full negotiable range the hiring manager is authorized to accept without secondary approval. &nbsp;If the stated intent for new hires
+                                              is to build a long-term, mutually beneficial relationship, the success rate of this effort increases when initial interactions are driven by the extension of trust by each party. Negotiations governed by
+                                              game theory is best reserved for one-time economic transactions.&nbsp;</p>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="card">
+                                  <div class="card-header" role="tab" style="background-color:rgba(0,100,114,0.78);">
+                                      <h5 class="text-center mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2" href="div#accordion-1 .item-2" style="color:rgb(217,236,255);">Equity Compensation</a></h5>
+                                  </div>
+                                  <div class="collapse item-2" role="tabpanel" data-parent="#accordion-1">
+                                      <div class="card-body">
+                                          <div class="row">
+                                              <div class="col d-flex flex-row justify-content-start" style="background-color:#2e2e2e;color:rgb(255,255,255);">
+                                                  <p class="justify-content-end my-auto">Set Range Endpoints</p>
+                                              </div>
+                                              <div class="col" style="background-color:#dcdcdc;color:rgb(0,0,0);">
+                                                  <p class="d-flex justify-content-center my-auto">Low End</p>
+                                              </div>
+                                              <div class="col" style="background-color:#545353;color:#dcdcdc;">
+                                                  <p class="d-flex justify-content-center my-auto">High End</p>
+                                              </div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="col">
+                                                  <p class="d-flex flex-row justify-content-end my-auto" style="font-size:14px;padding-top:6px;">Equity Granted at Signing (unvested)</p>
+                                              </div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="color:rgb(0,0,0);background-color:rgba(224,245,254,0.56);"></div>
+                                              <div class="col d-flex align-content-center align-self-center"
+                                                  style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:#003951;color:rgb(255,254,254);"></div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="col">
+                                                  <p class="d-flex justify-content-end my-auto" style="padding-top:6px;font-size:14px;">Grants Relative to Annual Pay</p>
+                                              </div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:rgba(204,239,254,0.56);"></div>
+                                              <div class="col d-flex align-content-center align-self-center" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="100" style="color:rgb(255,254,254);background-color:#003951;"></div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="col d-flex justify-content-end my-auto">
+                                                  <p class="d-flex justify-content-end my-auto" style="padding-top:5px;font-size:14px;">Performance Grants Awarded</p>
+                                              </div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:rgba(204,239,254,0.56);"></div>
+                                              <div class="col d-flex" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="100" style="background-color:#003951;color:rgb(255,255,255);"></div>
+                                          </div>
+                                          <p class="card-text" style="font-size:10px;padding-top:20px;padding-left:-5px;">note: Please enter estimated present value of company-issued securities in US$. Given that equity compensation can come in a variety of forms (e.g. stock options, restricted stock units, etc) and because deterimining
+                                              an accurate valuation for financial instruments such as these can be somewhat involved, including a fully functional and flexible financial model fell outside the scope of Perkolator v1.0. Send us a note
+                                              if you feel it will add significant utility as we appreciate user feedback when considering additional features in our roadmap. &nbsp;</p>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="card">
+                                  <div class="card-header" role="tab" style="background-color:rgba(255,214,107,0.88);">
+                                      <h5 class="text-center mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-3" href="div#accordion-1 .item-3" style="color:rgb(126,68,0);">Perks &amp; Benefits</a></h5>
+                                  </div>
+                                  <div class="collapse item-3" role="tabpanel" data-parent="#accordion-1">
+                                      <div class="card-body">
+                                          <div class="row">
+                                              <div class="col d-flex flex-row justify-content-start" style="background-color:#2e2e2e;color:#ffffff;">
+                                                  <p class="justify-content-end my-auto">Set Range Endpoints</p>
+                                              </div>
+                                              <div class="col" style="background-color:#dcdcdc;color:rgb(0,0,0);">
+                                                  <p class="d-flex justify-content-center my-auto">Low End</p>
+                                              </div>
+                                              <div class="col" style="color:#ffffff;background-color:#545353;">
+                                                  <p class="d-flex justify-content-center my-auto">High End</p>
+                                              </div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="col">
+                                                  <p class="d-flex flex-row justify-content-end my-auto" style="font-size:14px;padding-top:6px;">Paid by Employer</p>
+                                              </div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:rgb(255,246,224);"></div>
+                                              <div class="col d-flex align-content-center align-self-center" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:rgb(146,104,0);color:rgb(255,255,255);"></div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="col">
+                                                  <p class="d-flex justify-content-end my-auto" style="padding-top:6px;font-size:14px;">Employee Reimbursed</p>
+                                              </div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:rgb(255,246,224);"></div>
+                                              <div class="col d-flex align-content-center align-self-center" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="100" style="background-color:rgb(146,104,0);color:rgb(255,255,255);"></div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="col d-flex justify-content-end my-auto">
+                                                  <p class="d-flex justify-content-end my-auto" style="font-size:14px;padding-top:6px;">Savings/Retirement Contributions</p>
+                                              </div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:rgb(255,246,224);"></div>
+                                              <div class="col d-flex" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="100" style="background-color:rgb(146,104,0);color:rgb(255,255,255);"></div>
+                                          </div>
+                                          <p class="card-text" style="font-size:10px;padding-top:20px;padding-left:-5px;">note: Please enter annual values in US$. Employee benefits are considered supplements to wages and salaries, classified as all in-kind remuneration of labor (i.e. catch-all for anything non-cash or non-equity).
+                                              A break out of major sub-classes on the roadmap for Perkolator v.2.&nbsp;</p>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="card">
+                                  <div class="card-header" role="tab" style="background-color:rgba(118,0,85,0.72);">
+                                      <h5 class="text-center mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-4" href="div#accordion-1 .item-4" style="color:rgb(250,234,251);">Time Commitments &amp; Utilization</a></h5>
+                                  </div>
+                                  <div class="collapse item-4" role="tabpanel" data-parent="#accordion-1">
+                                      <div class="card-body">
+                                          <div class="row">
+                                              <div class="col d-flex flex-row justify-content-start" style="background-color:#2e2e2e;color:#ffffff;">
+                                                  <p class="justify-content-end my-auto">Set Range Endpoints</p>
+                                              </div>
+                                              <div class="col" style="background-color:#dcdcdc;color:rgb(0,0,0);">
+                                                  <p class="d-flex justify-content-center my-auto">Low End</p>
+                                              </div>
+                                              <div class="col" style="color:#ffffff;background-color:#545353;">
+                                                  <p class="d-flex justify-content-center my-auto">High End</p>
+                                              </div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="col">
+                                                  <p class="d-flex flex-row justify-content-end my-auto">New hire on-boarding / ramp-time</p>
+                                              </div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:#e4d7e7;"></div>
+                                              <div class="col d-flex align-content-center align-self-center" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:#70007a;color:rgb(255,255,255);"></div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="col">
+                                                  <p class="d-flex justify-content-end my-auto">Explicit value-add hours per week</p>
+                                              </div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:#e4d7e7;"></div>
+                                              <div class="col d-flex align-content-center align-self-center" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="100" style="background-color:#70007a;color:#ffffff;"></div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="col d-flex justify-content-end my-auto">
+                                                  <p class="d-flex justify-content-end my-auto">New skill developement per week</p>
+                                              </div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:#e4d7e7;"></div>
+                                              <div class="col d-flex" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="100" style="background-color:#70007a;color:#ffffff;"></div>
+                                          </div>
+                                          <p class="card-text">note: This concept is adapted from the professional service firm world. A billable hour can be considered the time an individual contributor is contributing direct value to the company through performing the
+                                              employee's stated primary core activites. All time incurred outside of this explicit function should be classified as overhead.</p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer__legal">
+      <i class="fa fa-code"></i> by inanimatedObjects
+    </div>
+    <svg id="perkolator"></svg>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="d3/src/timer.js"></script>
+  <script src="d3/src/bullet.js"></script>
+  <script src="d3/src/d3.js"></script>
+</body>
 </html>
