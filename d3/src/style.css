@@ -2,7 +2,7 @@ body {
   /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
   width: 99%;
   height: 100%;
-  background: lightyellow;
+  background: lightgrey;
   margin: 0px;
   padding: 0px;
   -webkit-appearance: none;
@@ -89,15 +89,15 @@ h1, h2, h3, h4, h5, h6 {
 
 
 
-/* #perkolator {
-  width: 1700px;
-  height: 1800px;
+#perkolator {
+  width: 1200px;
+  height: 500px;
   padding: 2px;
   margin-right:3%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   /* background-color: #a5c7b1; */
   /* background-image: url("https://www.transparenttextures.com/patterns/dark-geometric.png"); */
-} */
+}
 
 #firstPanel  {
   padding: 1px;
