@@ -38,13 +38,11 @@
     <div id="fourthPanel"  class="panel">
       <svg id="analyticsPanel"></svg>
     </div>
-
   </div>
 
   <br>
-
   <div>
-      <div class="container">
+    <div class="rangesContainer">
           <div class="row">
               <div class="col-md-12 d-table my-auto">
                   <div class="d-table-row"><a class="btn btn-light btn-block" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" role="button" href="#collapse-1" style="background-color:rgba(0,123,255,0.32);height:24px;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;font-size:16px;color:rgba(1,1,1,0.37);">Edit Slider Ranges</a>
@@ -54,7 +52,7 @@
                           <div role="tablist" id="accordion-1">
                               <div class="card">
                                   <div class="card-header" role="tab" style="background-color:rgba(0,153,61,0.53);">
-                                      <h5 class="text-center mb-0"><a data-toggle="collapse" aria-expanded="true" aria-controls="accordion-1 .item-1" href="div#accordion-1 .item-1" style="color:rgb(0,91,14);">Cash Compensation</a></h5>
+                                      <a data-toggle="collapse" aria-expanded="true" aria-controls="accordion-1 .item-1" href="div#accordion-1 .item-1" style="color:rgb(0,91,14);"><h5 class="text-center mb-0">Cash Compensation</h5></a>
                                   </div>
                                   <div class="collapse show item-1" role="tabpanel" data-parent="#accordion-1">
                                       <div class="card-body">
@@ -73,22 +71,30 @@
                                               <div class="col">
                                                   <p class="d-flex flex-row justify-content-end my-auto" style="font-size:14px;padding-top:6px;">Signing Bonus</p>
                                               </div>
-                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:rgba(225,249,225,0.45);"></div>
-                                              <div class="col d-flex align-content-center align-self-center" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:rgba(1,57,1,0.5);color:#ffffff;"></div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;">
+
+                                                <input class="d-table-cell flex-fill" id="cash_upFront_min" type="number" value="5000" style="background-color:rgba(225,249,225,0.45);">
+
+                                              </div>
+                                              <div class="col d-flex align-content-center align-self-center" style="background-color:#545353;">
+
+                                                <input class="d-table-cell flex-fill" id="cash_upFront_max" type="number" value="10000" style="background-color:rgba(1,57,1,0.5);color:#ffffff;">
+
+                                              </div>
                                           </div>
                                           <div class="row">
                                               <div class="col">
                                                   <p class="d-flex justify-content-end my-auto" style="padding-top:6px;font-size:14px;">Base Salary</p>
                                               </div>
-                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:rgba(225,249,225,0.45);"></div>
-                                              <div class="col d-flex align-content-center align-self-center" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="100" style="background-color:rgba(1,57,1,0.5);color:#ffffff;"></div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" value="0" style="background-color:rgba(225,249,225,0.45);"></div>
+                                              <div class="col d-flex align-content-center align-self-center" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" value="100" style="background-color:rgba(1,57,1,0.5);color:#ffffff;"></div>
                                           </div>
                                           <div class="row">
                                               <div class="col d-flex justify-content-end my-auto">
                                                   <p class="d-flex justify-content-end my-auto" style="font-size:14px;padding-top:6px;">Performance/Incentive Bonus</p>
                                               </div>
-                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:rgba(225,249,225,0.45);"></div>
-                                              <div class="col d-flex" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="100" style="background-color:rgba(1,57,1,0.5);color:#ffffff;"></div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" value="0" style="background-color:rgba(225,249,225,0.45);"></div>
+                                              <div class="col d-flex" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" value="100" style="background-color:rgba(1,57,1,0.5);color:#ffffff;"></div>
                                           </div>
                                           <p class="card-text" style="font-size:8px;padding-top:20px;padding-left:-5px;">note to employers: Greatest utility is achieved when endpoints are set the full negotiable range the hiring manager is authorized to accept without secondary approval. &nbsp;If the stated intent for new hires
                                               is to build a long-term, mutually beneficial relationship, the success rate of this effort increases when initial interactions are driven by the extension of trust by each party. Negotiations governed by
@@ -98,7 +104,7 @@
                               </div>
                               <div class="card">
                                   <div class="card-header" role="tab" style="background-color:rgba(0,100,114,0.78);">
-                                      <h5 class="text-center mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2" href="div#accordion-1 .item-2" style="color:rgb(217,236,255);">Equity Compensation</a></h5>
+                                      <a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-2" href="div#accordion-1 .item-2" style="color:rgb(217,236,255);"><h5 class="text-center mb-0">Equity Compensation</h5></a>
                                   </div>
                                   <div class="collapse item-2" role="tabpanel" data-parent="#accordion-1">
                                       <div class="card-body">
@@ -117,23 +123,23 @@
                                               <div class="col">
                                                   <p class="d-flex flex-row justify-content-end my-auto" style="font-size:14px;padding-top:6px;">Equity Granted at Signing (unvested)</p>
                                               </div>
-                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="color:rgb(0,0,0);background-color:rgba(224,245,254,0.56);"></div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" value="0" style="color:rgb(0,0,0);background-color:rgba(224,245,254,0.56);"></div>
                                               <div class="col d-flex align-content-center align-self-center"
-                                                  style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:#003951;color:rgb(255,254,254);"></div>
+                                                  style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" value="0" style="background-color:#003951;color:rgb(255,254,254);"></div>
                                           </div>
                                           <div class="row">
                                               <div class="col">
                                                   <p class="d-flex justify-content-end my-auto" style="padding-top:6px;font-size:14px;">Grants Relative to Annual Pay</p>
                                               </div>
-                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:rgba(204,239,254,0.56);"></div>
-                                              <div class="col d-flex align-content-center align-self-center" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="100" style="color:rgb(255,254,254);background-color:#003951;"></div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" value="0" style="background-color:rgba(204,239,254,0.56);"></div>
+                                              <div class="col d-flex align-content-center align-self-center" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" value="100" style="color:rgb(255,254,254);background-color:#003951;"></div>
                                           </div>
                                           <div class="row">
                                               <div class="col d-flex justify-content-end my-auto">
                                                   <p class="d-flex justify-content-end my-auto" style="padding-top:5px;font-size:14px;">Performance Grants Awarded</p>
                                               </div>
-                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:rgba(204,239,254,0.56);"></div>
-                                              <div class="col d-flex" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="100" style="background-color:#003951;color:rgb(255,255,255);"></div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" value="0" style="background-color:rgba(204,239,254,0.56);"></div>
+                                              <div class="col d-flex" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" value="100" style="background-color:#003951;color:rgb(255,255,255);"></div>
                                           </div>
                                           <p class="card-text" style="font-size:10px;padding-top:20px;padding-left:-5px;">note: Please enter estimated present value of company-issued securities in US$. Given that equity compensation can come in a variety of forms (e.g. stock options, restricted stock units, etc) and because deterimining
                                               an accurate valuation for financial instruments such as these can be somewhat involved, including a fully functional and flexible financial model fell outside the scope of Perkolator v1.0. Send us a note
@@ -143,7 +149,7 @@
                               </div>
                               <div class="card">
                                   <div class="card-header" role="tab" style="background-color:rgba(255,214,107,0.88);">
-                                      <h5 class="text-center mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-3" href="div#accordion-1 .item-3" style="color:rgb(126,68,0);">Perks &amp; Benefits</a></h5>
+                                      <a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-3" href="div#accordion-1 .item-3" style="color:rgb(126,68,0);"><h5 class="text-center mb-0">Perks &amp; Benefits</h5></a>
                                   </div>
                                   <div class="collapse item-3" role="tabpanel" data-parent="#accordion-1">
                                       <div class="card-body">
@@ -162,22 +168,22 @@
                                               <div class="col">
                                                   <p class="d-flex flex-row justify-content-end my-auto" style="font-size:14px;padding-top:6px;">Paid by Employer</p>
                                               </div>
-                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:rgb(255,246,224);"></div>
-                                              <div class="col d-flex align-content-center align-self-center" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:rgb(146,104,0);color:rgb(255,255,255);"></div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" value="0" style="background-color:rgb(255,246,224);"></div>
+                                              <div class="col d-flex align-content-center align-self-center" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" value="0" style="background-color:rgb(146,104,0);color:rgb(255,255,255);"></div>
                                           </div>
                                           <div class="row">
                                               <div class="col">
                                                   <p class="d-flex justify-content-end my-auto" style="padding-top:6px;font-size:14px;">Employee Reimbursed</p>
                                               </div>
-                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:rgb(255,246,224);"></div>
-                                              <div class="col d-flex align-content-center align-self-center" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="100" style="background-color:rgb(146,104,0);color:rgb(255,255,255);"></div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" value="0" style="background-color:rgb(255,246,224);"></div>
+                                              <div class="col d-flex align-content-center align-self-center" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" value="100" style="background-color:rgb(146,104,0);color:rgb(255,255,255);"></div>
                                           </div>
                                           <div class="row">
                                               <div class="col d-flex justify-content-end my-auto">
                                                   <p class="d-flex justify-content-end my-auto" style="font-size:14px;padding-top:6px;">Savings/Retirement Contributions</p>
                                               </div>
-                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:rgb(255,246,224);"></div>
-                                              <div class="col d-flex" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="100" style="background-color:rgb(146,104,0);color:rgb(255,255,255);"></div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" value="0" style="background-color:rgb(255,246,224);"></div>
+                                              <div class="col d-flex" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" value="100" style="background-color:rgb(146,104,0);color:rgb(255,255,255);"></div>
                                           </div>
                                           <p class="card-text" style="font-size:10px;padding-top:20px;padding-left:-5px;">note: Please enter annual values in US$. Employee benefits are considered supplements to wages and salaries, classified as all in-kind remuneration of labor (i.e. catch-all for anything non-cash or non-equity).
                                               A break out of major sub-classes on the roadmap for Perkolator v.2.&nbsp;</p>
@@ -186,7 +192,7 @@
                               </div>
                               <div class="card">
                                   <div class="card-header" role="tab" style="background-color:rgba(118,0,85,0.72);">
-                                      <h5 class="text-center mb-0"><a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-4" href="div#accordion-1 .item-4" style="color:rgb(250,234,251);">Time Commitments &amp; Utilization</a></h5>
+                                      <a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-4" href="div#accordion-1 .item-4" style="color:rgb(250,234,251);"><h5 class="text-center mb-0">Time Commitments &amp; Utilization</h5></a>
                                   </div>
                                   <div class="collapse item-4" role="tabpanel" data-parent="#accordion-1">
                                       <div class="card-body">
@@ -205,22 +211,22 @@
                                               <div class="col">
                                                   <p class="d-flex flex-row justify-content-end my-auto">New hire on-boarding / ramp-time</p>
                                               </div>
-                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:#e4d7e7;"></div>
-                                              <div class="col d-flex align-content-center align-self-center" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:#70007a;color:rgb(255,255,255);"></div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" value="0" style="background-color:#e4d7e7;"></div>
+                                              <div class="col d-flex align-content-center align-self-center" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" value="0" style="background-color:#70007a;color:rgb(255,255,255);"></div>
                                           </div>
                                           <div class="row">
                                               <div class="col">
                                                   <p class="d-flex justify-content-end my-auto">Explicit value-add hours per week</p>
                                               </div>
-                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:#e4d7e7;"></div>
-                                              <div class="col d-flex align-content-center align-self-center" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="100" style="background-color:#70007a;color:#ffffff;"></div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" value="0" style="background-color:#e4d7e7;"></div>
+                                              <div class="col d-flex align-content-center align-self-center" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" value="100" style="background-color:#70007a;color:#ffffff;"></div>
                                           </div>
                                           <div class="row">
                                               <div class="col d-flex justify-content-end my-auto">
                                                   <p class="d-flex justify-content-end my-auto">New skill developement per week</p>
                                               </div>
-                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" placeholder="0" style="background-color:#e4d7e7;"></div>
-                                              <div class="col d-flex" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" placeholder="100" style="background-color:#70007a;color:#ffffff;"></div>
+                                              <div class="col d-flex" style="background-color:#dcdcdc;"><input class="d-table-cell flex-fill" type="number" value="0" style="background-color:#e4d7e7;"></div>
+                                              <div class="col d-flex" style="background-color:#545353;"><input class="d-table-cell flex-fill" type="number" value="100" style="background-color:#70007a;color:#ffffff;"></div>
                                           </div>
                                           <p class="card-text">note: This concept is adapted from the professional service firm world. A billable hour can be considered the time an individual contributor is contributing direct value to the company through performing the
                                               employee's stated primary core activites. All time incurred outside of this explicit function should be classified as overhead.</p>
@@ -232,7 +238,7 @@
               </div>
           </div>
       </div>
-  </div>
+    </div>
   </div>
 
   <footer class="footer">
@@ -242,9 +248,11 @@
     <svg id="perkolator"></svg>
   </footer>
 
+
+<!-- <div id="perkolator"></div> -->
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <script src="d3/src/timer.js"></script>
   <script src="d3/src/bullet.js"></script>
