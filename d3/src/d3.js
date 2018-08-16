@@ -220,40 +220,53 @@ render(offer);
 
 
 
-// // import {path, angles} from './timer.js';
-// // var timer = require('./timer.js')
-//
-// var svg = d3.select("#perkolator"),
-//     width = +svg.attr("width"),
-//     height = +svg.attr("height"),
-//     angles = d3.range(0, 2 * Math.PI, Math.PI / 200);
-//
-// svg.attr("transform", "translate(" + 100 + "," + 700 + ")")
-//
-// var path = svg.append("g")
-//     .attr("transform", "translate(" + 700 + "," + 800 + ")")
-//     .attr("fill", "none")
-//     .attr("stroke-width",45)
-//     .attr("stroke-linejoin", "round")
-//   .selectAll("path")
-//   .data(["cyan", "magenta", "yellow"])
-//   .enter().append("path")
-//     .attr("stroke", function(d) { return d; })
-//     .style("mix-blend-mode", "darken")
-//     .datum(function(d, i) {
-//       return d3.radialLine()
-//           .curve(d3.curveLinearClosed)
-//           .angle(function(a) { return a; })
-//           .radius(function(a) {
-//             var t = d3.now() / 1000;
-//             return 400 + Math.cos(a * 8 - i * 2 * Math.PI / 3 + t) * Math.pow((1 + Math.cos(a - t)) / 2, 3) * 72;
-//           });
-//     });
-//
-// // timer(path, angles);
-//
-// d3.timer(function() {
-//   path.attr("d", function(d) {
-//     return d(angles);
-//   });
-// });
+// import {path, angles} from './timer.js';
+// var timer = require('./timer.js')
+
+var svg = d3.select("#perkolator"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height"),
+    angles = d3.range(0, 2 * Math.PI, Math.PI / 200);
+
+svg.attr("transform", "translate(" + 100 + "," + 100 + ")")
+
+
+svg.append("text")
+  .attr("transform", "translate(" + 70 + "," + 150 + ")")
+  .style("font-size", "70px")
+  .text("inanimate   (d)");
+
+svg.append("text")
+  .attr("transform", "translate(" + 610 + "," + 190 + ")")
+  .style("font-size", "99px")
+  .text("bjects");
+
+
+
+var path = svg.append("g")
+    .attr("transform", "translate(" + 520 + "," + 130 + ")")
+    .attr("fill", "none")
+    .attr("stroke-width",10)
+    .attr("stroke-linejoin", "round")
+  .selectAll("path")
+  .data(["cyan", "magenta", "yellow"])
+  .enter().append("path")
+    .attr("stroke", function(d) { return d; })
+    .style("mix-blend-mode", "darken")
+    .datum(function(d, i) {
+      return d3.radialLine()
+          .curve(d3.curveLinearClosed)
+          .angle(function(a) { return a; })
+          .radius(function(a) {
+            var t = d3.now() / 3000;
+            return 80 + Math.cos(a * 8 - i * 2 * Math.PI / 3 + t) * Math.pow((1 + Math.cos(a - t)) / 2, 3) * 16;
+          });
+    });
+
+// timer(path, angles);
+
+d3.timer(function() {
+  path.attr("d", function(d) {
+    return d(angles);
+  });
+});
