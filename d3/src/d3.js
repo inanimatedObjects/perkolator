@@ -174,51 +174,7 @@ render(offer);
 
 
 
-
-
-
-
-
-
-
-
-// var svg = d3.select("svg"),
-//     width = +svg.attr("width"),
-//     height = +svg.attr("height");
-//
-//     svg.height = 300;
-//     svg.width = 100;
-//
-// var panel = svg.append("g")
-//     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
-//     .attr("fill", "lightgrey")
-//     .attr("stroke-width", 15)
-//     .attr("stroke-linejoin", "round")
-//     .style("opacity", 0.8)
-//     .text("Panel");
-  // .selectAll("panel")
-  //   .data(["summaryPanel", "stackedBarPanel", "sliderPanel", "analyticsPanel"])
-  //   .enter().append("panel").append("text")
-  //   .text("Panel");
-//
-// svg.selectAll(".panel").append("g").append("text")
-//   .attr("class", "panel")
-//   .attr("transform", "translate(10, 20)")
-//   .text("summaryPanel");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// ***********animated watermark****************
 
 // import {path, angles} from './timer.js';
 // var timer = require('./timer.js')
@@ -230,7 +186,6 @@ var svg = d3.select("#perkolator"),
 
 svg.attr("transform", "translate(" + 100 + "," + 100 + ")")
 
-
 svg.append("text")
   .attr("transform", "translate(" + 70 + "," + 150 + ")")
   .style("font-size", "70px")
@@ -240,8 +195,6 @@ svg.append("text")
   .attr("transform", "translate(" + 610 + "," + 190 + ")")
   .style("font-size", "99px")
   .text("bjects");
-
-
 
 var path = svg.append("g")
     .attr("transform", "translate(" + 520 + "," + 130 + ")")
