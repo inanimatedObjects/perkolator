@@ -2,7 +2,7 @@ body {
   /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; */
   width: 99%;
   height: 100%;
-  background: lightyellow;
+  background: lightgrey;
   margin: 0px;
   padding: 0px;
   -webkit-appearance: none;
@@ -32,27 +32,19 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'CatMule Caps';
 }
 
-/* .flex-row {
-  -ms-flex-direction:row!important;
-  flex-direction:row!important;
-} */
 .d-flex {
   display:-ms-flexbox!important;
   display:flex!important;
 }
-/* .d-inline-block {
-  display:inline-block!important;
-} */
-div.list-group {
+
+ div.list-group {
   width: 100%;
   display:-ms-flexbox;
   display:flex;
   -ms-flex-direction:column;
   flex-direction:row;
-  /* text-align: left; */
   background-color: none;
 }
-
 
 #appNameArticle {
   font-family: 'CatMule Caps';
@@ -61,17 +53,13 @@ div.list-group {
   margin-left: 20px;
   margin-bottom: -20px;
 }
-
 #appName {
   font-family: 'CatMule Caps';
   font-size: 40px;
   margin: 0px;
   margin-left: 10px;
   padding-top: 0px;
-  /* text-align: center; */
-  /* align-self: end; */
 }
-
 #appMotto {
   font-family: 'CatMule Caps';
   font-style: italic;
@@ -79,10 +67,8 @@ div.list-group {
   margin-top: 26px;
   font-weight: 100;
   margin-left: 180px;
-  /* text-align: left; */
   color: white;
 }
-
 #appDescription {
   font-family: 'Libre Baskerville';
   display:flex;
@@ -90,43 +76,46 @@ div.list-group {
   font-size: 8px;
   margin-top: -20px;
   margin-left: 20px;
-  /* margin-top: 8px; */
-  /* margin-bottom: 0px; */
   font-weight: 100;
-  /* text-align: right;
-  align-self: end; */
 }
 
 #root {
   padding: 1%;
-  /* padding-top: 0px; */
   margin:1%;
   border: 1px solid black;
   background-color: #a5c7b1;
   background-image: url("https://www.transparenttextures.com/patterns/dark-geometric.png");
 }
 
-#firstPanel  {
-  padding: 1px;
-  margin:1px;
-  margin-bottom:20px;
-  border: 1px solid black;
+
+
+#perkolator {
+  width: 1200px;
+  height: 500px;
+  padding: 2px;
+  margin-right:3%;
+  /* border: 1px solid black; */
+  /* background-color: #a5c7b1; */
+  /* background-image: url("https://www.transparenttextures.com/patterns/dark-geometric.png"); */
 }
 
-#secondPanel  {
+#firstPanel  {
   padding: 1px;
-  /* margin:1px; */
   margin-bottom:20px;
   border: 1px solid red;
 }
 
+#secondPanel  {
+  padding: 1px;
+  margin-bottom:20px;
+  border: 1px solid red;
+}
 #thirdPanel  {
   padding: 1px;
   margin:1px;
   margin-bottom:20px;
   border: 1px solid green;
 }
-
 #fourthPanel  {
   padding: 1px;
   margin:1px;
@@ -136,11 +125,11 @@ div.list-group {
 
 
 #summaryPanel {
+  width: 99%;
+  height: 99%;
   background: violet;
   margin: 1px;
   margin-top: 1px;
-  width: 99%;
-  height: 99%;
   border: white dotted 1px;
 px tan, 3px 3px 10px white;
   margin-bottom: 0px;
@@ -156,10 +145,10 @@ px tan, 3px 3px 10px white;
 
 #driverPanel {
   background: lightgreen;
-  margin: 1px;
-  width: 100%;
+  /* margin: 1px; */
+  /* width: 100%; */
   /* height: auto; */
-  min-height: 50px;
+  /* min-height: 5px; */
 }
 
 #analyticsPanel {
@@ -178,35 +167,13 @@ px tan, 3px 3px 10px white;
 
 
 
-
-
-
-
-
-/*
-#container {
-  padding: 2px;
-  margin-right:3%;
-  border: 1px solid black;
-  background-color: #a5c7b1;
-  background-image: url("https://www.transparenttextures.com/patterns/dark-geometric.png");
-} */
-
-/* #dragDiv {
-  font-size: 10px;
-  border-radius: 3px;
-  box-shadow: 0 0 5px #999;
-  padding: 10px;
-  pointer-events: 'none';
-  opacity:0.5;
-  background-color: lightgrey;
-  position: absolute;
-}
-
 .bulletContainer {
     border: 1px solid black;
     margin: 10px;
-    padding-top: 60px;
+    buffer: 5px;
+    padding-top: 100px;
+    height: 200px;
+    /* width: 500px; */
 }
 
 .bullet {
@@ -276,4 +243,4 @@ px tan, 3px 3px 10px white;
   font-weight: bold;
   fill: white;
   text-shadow: 1px 1px 2px black, 0 0 10px blue, 0 0 5px darkblue;
-} */
+}
