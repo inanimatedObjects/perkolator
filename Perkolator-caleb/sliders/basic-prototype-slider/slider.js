@@ -15,6 +15,7 @@ function slider(data)
     slider = svg.append("g")
       .attr("class", "slider")
       .attr("transform", "translate(37.5, 25)")
+      // ^ needs adjustment
 
     let id = svg.attr("id");
 
@@ -27,7 +28,6 @@ function slider(data)
 
     slider.append("circle")
     	.attr("class", "handle" + id)
-    	.attr("cx", x.range()[1] / 2)
     	.attr("cy", height / 2)
     	.attr("r", 9)
       .call(d3.drag()
