@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <style>
+  .slideLine {
+    stroke: black;
+    stroke-width: 3px;
+  }
+
+  .item {
+    margin: 20;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .column {
+    flex-basis: content;
+    border: 1px solid;
+    margin: 5px;
+  }
+
+  @media screen and (min-width: 800px) {
+    .column {
+      flex: 1;
+    }
+  }
+  </style>
+</head>
+
+<body>
+  <div class="row">
+    <div class="column">
+    </div>
+    <div class="column">
+    </div>
+    <div class="column">
+    </div>
+  </div>
+  <div class="row">
+    <div class="column">
+    </div>
+    <div class="column">
+    </div>
+    <div class="column">
+    </div>
+  </div>
+  <div class="row">
+    <div class="column">
+    </div>
+    <div class="column">
+    </div>
+    <div class="column">
+    </div>
+  </div>
+  <div class="row">
+    <div class="column">
+    </div>
+    <div class="column">
+    </div>
+    <div class="column">
+    </div>
+  </div>
+  <script>
+
+
+  d3.selectAll(".column").append("svg")
+    .attr("class", (d, i) => { return "item slider" + i })
+    .attr("width", "100%")
+    .attr("height", "100%")
+
+  let margin = {right: 20, left: 20},
+    width = document.getElementsByClassName("column")[0].clientWidth,
+    height = document.getElementsByClassName("item")[0].clientHeight;
+
+  let xScale = d3.scaleLinear()
+    .domain([0, 100])
+    .range([0 + margin.left, width - margin.right])
+    .clamp("true");
+
+  d3.selectAll("svg").append("g")
+    .attr("class", (d, i) => { return "sliderContainer container" + i })
+
+  d3.selectAll("g").append("line")
+    .attr("class", (d, i) => { return "slideLine line" + i })
+    .attr("x1", xScale.range()[0])
+    .attr("x2", xScale.range()[1])
+    .attr("y1", height * (2 / 3))
+    .attr("y2", height * (2 / 3))
+
+  d3.selectAll("g").insert("circle")
+    .attr("class", (d, i) => { return "handle" + i })
+    .attr("cx", xScale.range()[1] / 2 + 10)
+    .attr("cy", height * (2 / 3))
+    .attr("r", 9)
+    .call(d3.drag()
+      .on("start drag", function() {
+        handleSlide(xScale.invert(d3.event.x), Number(this.getAttribute("class").slice([6])))
+      })
+    )
+
+  d3.selectAll("g").insert("text")
+    .attr("class", (d, i) => { return "value" + i })
+    .attr("x", xScale.range()[1])
+    .attr("y", height / 3)
+    .attr("text-anchor", "end")
+    .text((d, i) => {
+      return Math.round(xScale.invert(d3.select(".handle" + i).attr("cx")))
+    })
+
+  function handleSlide(d, i) {
+    d3.select(".handle" + i)
+      .attr("cx", xScale(d))
+    d3.select(".value" + i)
+      .text(Math.round(d))
+  }
+
+
+  </script>
+</body>

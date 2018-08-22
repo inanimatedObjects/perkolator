@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <style>
+    .slideLine {
+      stroke: #000;
+      stroke-width: 5px;
+      stroke-linecap: round;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    // Feel free to change or delete any of the code you see in this editor!
+
+    var margin = {right: 20, left: 20},
+        width = 400,
+        height = 200;
+
+  	var svg = d3.select("body").append("svg")
+			.attr("width", width)
+     	.attr("height", height);
+
+    var xScale = d3.scaleLinear()
+      .domain([0, 100])
+      .range([0, width - margin.left - margin.right])
+      .clamp(true);
+
+    var slider = svg.append("g")
+    	.attr("class", "slider")
+    	.attr("transform", "translate(" + margin.left + "," + height / 4 + ")");
+
+    slider.append("line")
+    	.attr("class", "slideLine")
+      .attr("x1", xScale.range()[0])
+    	.attr("x2", xScale.range()[1])
+
+    slider.insert("circle")
+    	.attr("class", "handle")
+    	.attr("cx", xScale.range()[1] / 2)
+    	.attr("r", 9)
+    	.call(d3.drag()
+      	.on("start drag", function() { handleSlide(xScale.invert(d3.event.x)) } ))
+
+    function handleSlide(d) {
+      d3.selectAll(circle)
+        .attr("cx", xScale(d))
+    }
+
+  </script>
+</body>
