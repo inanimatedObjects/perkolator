@@ -1,47 +1,47 @@
-function slider()
+function slider(data)
 {
-    var margin = {top: 5, left: 10, right: 10, bottom: 5},
-        width  = 300 - margin.left - margin.right,
-        height = 40  - margin.top  - margin.bottom,
-        handle, slider
+  let margin = {top: 100, left: 15},
+    width  = 280,
+    height = 150,
+    handle, slider, line
 
-    var x = d3.scaleLinear()
-        .domain([0, 1])
-        .range ([0, width])
-        .clamp(true);
+  let x = d3.scaleLinear()
+    .domain([0, 1])
+    .range ([0, width])
+    .clamp(true);
 
-    function chart(el)
-    {
-        var svg = el.attr("width",  width  + margin.left + margin.right)
-            .attr("height", height + margin.top  + margin.bottom)
+  function drawSlider(svg) {
 
-        slider = svg.append("g")
-            .attr("class","slider")
-            .attr("transform","translate(" + margin.left + "," + margin.top + ")")
+    slider = svg.append("g")
+      .attr("class", "slider")
+      .attr("transform", "translate(37.5, 25)")
 
-        line = slider.append("line")
-          .attr("class", "slideLine")
-          .attr("x1", x.range()[0])
-        	.attr("x2", x.range()[1])
-        	.attr("y1", height / 2)
-        	.attr("y2", height / 2)
+    let id = svg.attr("id");
 
-        slider.append("circle")
-        	.attr("class", "handle " + el.attr("id"))
-        	.attr("cx", x.range()[1] / 2)
-        	.attr("cy", height / 2)
-        	.attr("r", 9)
-          .call(d3.drag()
-          	.on("start drag", function() {
-              handleSlide(x.invert(d3.event.x), el)
-            } ))
+    line = slider.append("line")
+      .attr("class", "slideLine")
+      .attr("x1", x.range()[0])
+    	.attr("x2", x.range()[1])
+    	.attr("y1", height / 2)
+    	.attr("y2", height / 2)
 
-        function handleSlide(d, el) {
-          console.log(d)
-          d3.select(".handle")
-            .attr("cx", x(d))
-        }
+    slider.append("circle")
+    	.attr("class", "handle" + id)
+    	.attr("cx", x.range()[1] / 2)
+    	.attr("cy", height / 2)
+    	.attr("r", 9)
+      .call(d3.drag()
+      	.on("start drag", function() {
+          handleSlide(x.invert(d3.event.x), id)
+        } ))
+
+    function handleSlide(d, id) {
+      d3.select(".handle" + id)
+        .attr("cx", x(d));
+      d3.select(".val" + id)
+        .text(Math.round(data[id].min + (d * (data[id].max - data[id].min))))
     }
+  }
 
-    return chart;
+  return drawSlider;
 }
