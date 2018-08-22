@@ -267,13 +267,107 @@ rect {
     <li class="cash flex-item"><svg id="signBonus"></svg></li>
     <li class="cash flex-item">Base Salary<svg id="baseSalary" ></svg></li>
     <li class="cash flex-item">Performance Bonus<svg id="performanceBonus" ></svg></li>
-
     <li class="equity flex-item"><svg id="initialGrant"></svg></li>
     <li class="equity flex-item"><svg id="earnedStock"></svg></li>
     <li class="equity flex-item"><svg id="performanceGrant"></svg></li>
-
+    <li class="cash flex-item"><svg id="signBonus"></svg></li>
+    <li class="cash flex-item">Base Salary<svg id="baseSalary" ></svg></li>
+    <li class="cash flex-item">Performance Bonus<svg id="performanceBonus" ></svg></li>
+    <li class="equity flex-item"><svg id="initialGrant"></svg></li>
+    <li class="equity flex-item"><svg id="earnedStock"></svg></li>
+    <li class="equity flex-item"><svg id="performanceGrant"></svg></li>
   </ul>
+
 </div>
+
+
+
+
+
+
+
+
+<!-- CONTAINER -->
+<div id="container">
+  <!-- CASH PANEL ROW -->
+  <div class="row" id="cash">
+
+    <!-- CASH PANEL [0] -->
+      <div class="panel upfront" id="cashUpfront">
+          <h3 class="title">Sign Bonus</h3>
+          <h6 class="subtitle">( paid upon signing )</h3>
+
+          <div class="visiblePanel">
+              <svg class="cash upfront outputSlider" id="cash_upfront_summaryOutput">     <!-- all childElements are <g> -->
+                  <text class="outputSlider termValue" id=cash_upfront_termValue_DERIVED></text>
+                  <text class="outputSlider currentSliderValue" id=cash_upfront_currentSliderValue_DERIVED</text>
+
+                  <line class="outputSlider slider" id="cash_upfront_DATAVIZ"></line>
+                  <tick class="outputSlider tick axisBottom"></tick>               <!-- repeat according to tick count set -->
+                  <line class="outputSlider handle" id="cash_upfront_DERIVED"></line>
+              <svg>
+          </div>
+
+          <div class="invisiblePanel">
+              <svg class="cash upfront numberSlider" id="cash_upfront_numberSlider">
+                  <text class="outputSlider termValue" id=cash_upfront_termValue_DERIVED></text>
+                  <text class="outputSlider currentSliderValue" id=cash_upfront_currentSliderValue_DERIVED</text>
+                  <line class="outputSlider slider" id="cash_upfront_DATAVIZ_UI"></line>
+                  <tick class="outputSlider tick axisBottom"></tick>               <!-- repeat according to tick count set -->
+                  <line class="outputSlider handle" id="cash_upfront_SOURCE_DATA"></line>
+                <svg>
+              <svg class="cash upfront percentSlider" id="cash_upfront_percentSlider"><svg>
+          </div>
+
+      </div>
+
+      <!-- CASH PANEL [1] -->
+      <div class="panel eventDriven" id="cashSalary">
+          <div class="visiblePanel">
+                <svg class="cash rateBased numberSlider" id="cash_rateBased_outputSlider"><svg>
+          </div>
+          <div class="invisiblePanel">
+                <svg class="cash rateBased numberSlider" id="cash_rateBased_numberSlider"><svg>
+                <svg class="cash rateBased percentSlider" id="cash_rateBased_percentSlider"><svg>
+          </div>
+      </div>
+
+      <!-- CASH PANEL [2] -->
+      <div class="panel eventDriven" id="cashSalary">
+          <div class="visiblePanel">
+                <svg class="cash eventDriven numberSlider" id="cash_eventDriven_outputSlider"><svg>
+          </div>
+          <div class="invisiblePanel">
+                <svg class="cash eventDriven numberSlider" id="cash_eventDriven_numberSlider"><svg>
+                  <svg class="cash eventDriven percentSlider" id="cash_eventDriven_percentSlider"><svg>
+          </div>
+      </div>
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
   let margin = {top: 15, right: 20, bottom: 38, left: 20},

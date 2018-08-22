@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>The Perkolator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css"></style>
+    <style>
+        body {
+            margin: 10px;
+            padding: 0px;
+            position:fixed;
+            top:0;
+            right:0;
+            bottom:0;
+            left:0;
+            background: lightgrey;
+            width: 960px;
+            height: 100%;
+        }
+        svg {
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            fill: lightyellow;
+        }
+        #cashUpfront {
+
+        }
+
+
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+
+<body>
+
+    <nav class="sitemap">Perkolator</nav>
+
+    <div id="root">root html node</div>
+        <div id="title">
+            <h6><span id="appNameArticle">The</span></h6>
+            <h1><span id="appName">Perkolator</span></h1>
+            <h3 id="appMotto">they just made you a job offer, should you negotiate?</h3>
+        </div>
+        <div id="appDescription">
+            <h5><span> | interactive comprehensive compensation calculator | </span></h5>
+        </div>
+        <div id="container">
+            <div class="row" id="cashRow">
+                <div id="panel_c0" class="panel cash upfront">
+                    <!-- panel labels -->
+                    <h3 class="title">Sign Bonus</h3>
+                    <h6 class="subtitle">( paid upon signing )</h3>
+
+                    <!-- summary slider -->
+                    <div class="cash upfront svgContainer visible">
+                        <svg class="cash upfront outputSlide derivedData" id="output_c0"/>
+                    </div>
+
+                    <!-- interactive sliders -->
+                    <div class="cash upfront svgContainer hidden">
+                        <svg class="cash upfront numberSlide inputData" id="base_c0"/>
+                        <svg class="cash upfront ratioSlide inputData" id="factor_c0"/>
+                    </div>
+                </div>
+                <div id="panel_c1" class="panel cash rateBase">
+                    <!-- panel labels -->
+                    <h3 class="title">Salary</h3>
+                    <h6 class="subtitle">( paid bi-weekly )</h3>
+                    <!-- summary slider -->
+                    <div class="cash rateBased svgContainer visible">
+                        <svg class="cash rateBased outputSlide derivedData" id="output_c1"/>
+                    </div>
+                    <!-- interactive sliders -->
+                    <div class="cash rateBased svgContainer hidden">
+                        <svg class="cash rateBased numberSlide inputData" id="base_c1"/>
+                        <svg class="cash rateBased ratioSlide inputData" id="factor_c1"/>
+                    </div>
+                </div>
+                <div id="panel_c2" class="panel cash eventDriven">
+                     <!-- panel labels -->
+                    <h3 class="title">Incentive Bonus</h3>
+                    <h6 class="subtitle">( paid according to performance )</h3>
+                     <!-- summary slider -->
+                    <div class="cash eventDrive svgContainer visible">
+                        <svg class="cash eventDriven outputSlide derivedData" id="output_c2"/>
+                    </div>
+                    <!-- interactive sliders -->
+                    <div class="cash eventDriven svgContainer hidden">
+                        <svg class="cash eventDriven numberSlide inputData" id="output_c2"/>
+                        <svg class="cash eventDriven ratioSlide inputData" id="output_c2"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="equityRow">
+                <div id="panel_e0" class="panel equity upfront">
+                    <!-- panel labels -->
+                    <h3 class="title">Sign Bonus</h3>
+                    <h6 class="subtitle">( paid upon signing )</h3>
+                    <!-- summary slider -->
+                    <div class="equity upfront svgContainer visible">
+                        <svg class="equity upfront outputSlide derivedData" id="output_e0"/>
+                    </div>
+                    <!-- interactive sliders -->
+                    <div class="equity upfront svgContainer hidden">
+                        <svg class="equity upfront numberSlide inputData" id="base_e0"/>
+                        <svg class="equity upfront ratioSlide inputData" id="factor_e0"/>
+                    </div>
+                </div>
+                <div id="panel_e1" class="panel equity rateBase">
+                    <!-- panel labels -->
+                    <h3 class="title">Salary</h3>
+                    <h6 class="subtitle">( paid bi-weekly )</h3>
+                    <!-- summary slider -->
+                    <div class="equity rateBased svgContainer visible">
+                        <svg class="equity rateBased outputSlide derivedData" id="output_e1"/>
+                    </div>
+                    <!-- interactive sliders -->
+                    <div class="equity rateBased svgContainer hidden">
+                        <svg class="equity rateBased numberSlide inputData" id="base_e1"/>
+                        <svg class="equity rateBased ratioSlide inputData" id="factor_e1"/>
+                    </div>
+                </div>
+                <div id="panel_e2" class="panel cash eventDriven">
+                     <!-- panel labels -->
+                    <h3 class="title">Incentive Bonus</h3>
+                    <h6 class="subtitle">( paid according to performance )</h3>
+                     <!-- summary slider -->
+                    <div class="cash eventDrive svgContainer visible">
+                        <svg class="cash eventDriven outputSlide derivedData" id="output_e2"/>
+                    </div>
+                    <!-- interactive sliders -->
+                    <div class="cash eventDriven svgContainer hidden">
+                        <svg class="cash eventDriven numberSlide inputData" id="output_e2"/>
+                        <svg class="cash eventDriven ratioSlide inputData" id="output_e2"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="perksRow">
+                <div id="panel_p0" class="panel perks upfront">
+                    <!-- panel labels -->
+                    <h3 class="title">Sign Bonus</h3>
+                    <h6 class="subtitle">( paid upon signing )</h3>
+                    <!-- summary slider -->
+                    <div class="perks upfront svgContainer visible">
+                        <svg class="perks upfront outputSlide derivedData" id="output_p0"/>
+                    </div>
+                    <!-- interactive sliders -->
+                    <div class="perks upfront svgContainer hidden">
+                        <svg class="perks upfront numberSlide inputData" id="base_p0"/>
+                        <svg class="perks upfront ratioSlide inputData" id="factor_p0"/>
+                    </div>
+                </div>
+                <div id="panel_p1" class="panel perks rateBase">
+                    <!-- panel labels -->
+                    <h3 class="title">Salary</h3>
+                    <h6 class="subtitle">( paid bi-weekly )</h3>
+                    <!-- summary slider -->
+                    <div class="perks rateBased svgContainer visible">
+                        <svg class="perks rateBased outputSlide derivedData" id="output_p1"/>
+                    </div>
+                    <!-- interactive sliders -->
+                    <div class="perks rateBased svgContainer hidden">
+                        <svg class="perks rateBased numberSlide inputData" id="base_p1"/>
+                        <svg class="perks rateBased ratioSlide inputData" id="factor_p1"/>
+                    </div>
+                </div>
+                <div id="panel_p2" class="panel perks eventDriven">
+                     <!-- panel labels -->
+                    <h3 class="title">Incentive Bonus</h3>
+                    <h6 class="subtitle">( paid according to performance )</h3>
+                     <!-- summary slider -->
+                    <div class="perks eventDrive svgContainer visible">
+                        <svg class="perks eventDriven outputSlide derivedData" id="output_p2"/>
+                    </div>
+                    <!-- interactive sliders -->
+                    <div class="perks eventDriven svgContainer hidden">
+                        <svg class="perks eventDriven numberSlide inputData" id="output_p2"/>
+                        <svg class="perks eventDriven ratioSlide inputData" id="output_p2"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="timeRow">
+                <div id="panel_t0" class="panel time upfront">
+                    <!-- panel labels -->
+                    <h3 class="title">Sign Bonus</h3>
+                    <h6 class="subtitle">( paid upon signing )</h3>
+                    <!-- summary slider -->
+                    <div class="time upfront svgContainer visible">
+                        <svg class="time upfront outputSlide derivedData" id="output_t0"/>
+                    </div>
+                    <!-- interactive sliders -->
+                    <div class="time upfront svgContainer hidden">
+                        <svg class="time upfront numberSlide inputData" id="base_t0"/>
+                        <svg class="time upfront ratioSlide inputData" id="factor_t0"/>
+                    </div>
+                </div>
+
+                <div id="panel_t1" class="panel time rateBase">
+                    <!-- panel labels -->
+                    <h3 class="title">Salary</h3>
+                    <h6 class="subtitle">( paid bi-weekly )</h3>
+                    <!-- summary slider -->
+                    <div class="time rateBased svgContainer visible">
+                        <svg class="time rateBased outputSlide derivedData" id="output_t1"/>
+                    </div>
+                    <!-- interactive sliders -->
+                    <div class="time rateBased svgContainer hidden">
+                        <svg class="time rateBased numberSlide inputData" id="base_t1"/>
+                        <svg class="time rateBased ratioSlide inputData" id="factor_t1"/>
+                    </div>
+                </div>
+                <div id="panel_t2" class="panel time eventDriven">
+                     <!-- panel labels -->
+                    <h3 class="title">Incentive Bonus</h3>
+                    <h6 class="subtitle">( paid according to performance )</h3>
+                     <!-- summary slider -->
+                    <div class="time eventDrive svgContainer visible">
+                        <svg class="time eventDriven outputSlide derivedData" id="output_t2"/>
+                    </div>
+                    <!-- interactive sliders -->
+                    <div class="time eventDriven svgContainer hidden">
+                        <svg class="time eventDriven numberSlide inputData" id="output_t2"/>
+                        <svg class="time eventDriven ratioSlide inputData" id="output_t2"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Declare and assign reusable DOM formatting variables
+    let margin = {top: 15, right: 20, bottom: 15, left: 20},
+        svg = d3.select('body').selectAll('svg'),
+        height = 200,
+        width = 260,
+        slideWidth = width - margin.left - margin.right,
+        slideHeight = height - margin.top - margin.bottom + 10;
+
+// Declare the category types for the sliderPanel grid
+    let paySched = ['upfront', 'bi-weekly', 'eventBased'],    // when you get paid
+         compType = ['cash', 'equity', 'perks', 'time'];            // what form of comp you receive
+
+// invoke and as prototype slider function to html (src=> slider.js)
+    let panelSlider = d3.slider()
+         .width(width)
+         .height(height );
+
+    // NOTE: => expand line for other data object instantiations
+         // let compMatrix = [
+         //     [ 12, 100, 13 ],
+         //     [ 20, 40, 15 ],
+         //     [ 10, 20, 25 ],
+         //     [ 200, 2000, 300 ]
+         // ];
+         //
+         // let cashData = [10,90,15],
+         // equityData = [20, 15, 5],
+         // perksData = [10, 15, 52],
+         // timeData = [200, 2000, 100];
+
+// Create a data object of output value from each of the 12 slider panels using the respetive starting default values
+    let c0 = 12,
+        c1 = 100,
+        c2 = 13,
+        e0 = 20,
+        e1 = 40,
+        e2 = 15,
+        p0 = 10,
+        p1 = 20,
+        p2 = 25,
+        t0 = 200,
+        t1 = 2000,
+        t2 = 300;
+
+    let compMatrix = [
+        [ c0, c1, c2 ],
+        [ e0, e1, e2 ],
+        [ p0, p1, p2 ],
+        [ t0, t1, t2 ]
+    ];
+
+    const offerTerms = [ 12, 100, 13, 20, 40, 15, 10, 20, 25, 200, 2000, 300 ];
+
+    // sum offer terms by comp type
+    let paid_in_cash = compMatrix[0],
+        paid_in_equity = compMatrix[1],
+        received_in_benefits = compMatrix[2],
+        time_commitment = compMatrix[3];
+
+    // sum all the job offer terms to determine aggregate value of offered compensation
+    const add = (a, b) => a + b
+    // sum the offerTerms by reducing our array
+    const totalCash = paid_in_cash.reduce(add),
+             totalEquity = paid_in_equity.reduce(add),
+             totalPerks = paid_in_benefits.reduce(add),
+             totalTime = time_commitment.reduce(add),
+             totalComp = offerTerms.reduce(add);
+
+
+// declare d3 render function
+    const render = (data, termSheet, scale, selector) => {
+        let svg = select('body').selectAll(selector)
+
+
+    }
+
+
+render(paid_in_cash, compMatrix, linear, "#c0" );
+
+
+
+<script>
+  let margin = {top: 15, right: 20, bottom: 38, left: 20},
+      // svg = d3.select('body').append('svg'),
+      compType = ['cash', 'equity', 'perks', 'time'],
+      pmtSchedule = ['upfront', 'bi-weekly', 'eventBased']
+      height =  100,
+      width = 160,
+      // labelWidth = -10,
+      // labelHeight = -height - margin.top - margin.bottom + 10,
+      slideWidth = width - margin.left - margin.right,
+      slideHeight = -height - margin.top - margin.bottom + 10;
+
+      // var chart = d3.bullet()
+      //     .width(width)
+      //     .height(height );
+
+  let cashData = [10,90,15],
+      equityData = [20, 15, 5],
+      perksData = [10, 15, 52],
+      timeData = [200, 2000, 100];
+
+  let slideDomain = [0,150];
+// ADD domain selector function
+
+
+  let xScale = d3.scaleLinear()
+  .domain([slideDomain[0],slideDomain[1]])
+  .range([0, width])
+  .clamp(true);
+
+
+</script>
+
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
