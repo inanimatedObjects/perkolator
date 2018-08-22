@@ -69,7 +69,7 @@
 
 
   d3.selectAll(".column").append("svg")
-    .attr("class", (d, i) => { return "item slider" + (i + 1) })
+    .attr("class", (d, i) => { return "item slider" + i })
     .attr("width", "100%")
     .attr("height", "100%")
 
@@ -83,17 +83,17 @@
     .clamp("true");
 
   d3.selectAll("svg").append("g")
-    .attr("class", (d, i) => { return "sliderContainer container" + (i + 1) })
+    .attr("class", (d, i) => { return "sliderContainer container" + i })
 
   d3.selectAll("g").append("line")
-    .attr("class", (d, i) => { return "slideLine line" + (i + 1) })
+    .attr("class", (d, i) => { return "slideLine line" + i })
     .attr("x1", xScale.range()[0])
     .attr("x2", xScale.range()[1])
     .attr("y1", height * (2 / 3))
     .attr("y2", height * (2 / 3))
 
   d3.selectAll("g").insert("circle")
-    .attr("class", (d, i) => { return "handle" + (i + 1) })
+    .attr("class", (d, i) => { return "handle" + i })
     .attr("cx", xScale.range()[1] / 2 + 10)
     .attr("cy", height * (2 / 3))
     .attr("r", 9)
@@ -104,16 +104,15 @@
     )
 
   d3.selectAll("g").insert("text")
-    .attr("class", (d, i) => { return "value" + (i + 1) })
+    .attr("class", (d, i) => { return "value" + i })
     .attr("x", xScale.range()[1])
     .attr("y", height / 3)
     .attr("text-anchor", "end")
     .text((d, i) => {
-      return Math.round(xScale.invert(d3.select(".handle" + (i + 1)).attr("cx")))
+      return Math.round(xScale.invert(d3.select(".handle" + i).attr("cx")))
     })
 
   function handleSlide(d, i) {
-    console.log(i)
     d3.select(".handle" + i)
       .attr("cx", xScale(d))
     d3.select(".value" + i)

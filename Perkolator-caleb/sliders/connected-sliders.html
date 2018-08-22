@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <style>
+    .slideLine {
+      stroke: #000;
+      stroke-width: 5px;
+      stroke-linecap: round;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+
+  var margin = {right: 20, left: 20},
+      width = 250,
+      height = 300,
+      radius = 9,
+      lineWidth = width - margin.left - margin.right;
+
+  var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  // declare line scales
+  var mainScale = d3.scaleLinear()
+    .domain([0, 120])
+    .range([0, lineWidth])
+    .clamp(true)
+
+  var percentageScale = d3.scaleLinear()
+    .domain([.01, 1])
+    .range([0, lineWidth])
+    .clamp(true)
+
+  var targetScale = d3.scaleLinear()
+    .domain([80, 120])
+    .range([0, lineWidth])
+    .clamp(true)
+
+  // enter + append main slider
+  var mainSlider = svg.append("g")
+    .attr("class", "slider")
+    .attr("transform", "translate(" + margin.left + "," + (height * 0.3) + ")")
+
+  mainSlider.append("line")
+    .attr("class", "slideLine")
+    .attr("x1", mainScale.range()[0])
+  	.attr("x2", mainScale.range()[1])
+
+  var mainHandle = mainSlider.insert("circle")
+    .attr("class", "handle")
+    .attr("cx", lineWidth / 2)
+    .attr("r", radius)
+    // .call(d3.drag()
+    //   .on("start drag", function() { handleMainSlide(mainScale.invert(d3.event.x)) } ))
+
+  // enter + append percentage slider
+  var percentageSlider = svg.append("g")
+    .attr("class", "slider")
+    .attr("transform", "translate(" + margin.left + "," + (height * 0.6) + ")")
+
+  percentageSlider.append("line")
+    .attr("class", "slideLine")
+    .attr("x1", percentageScale.range()[0])
+  	.attr("x2", percentageScale.range()[1])
+
+  var percentageHandle = percentageSlider.insert("circle")
+    .attr("class", "handle")
+    .attr("cx", lineWidth / 2)
+    .attr("r", radius)
+    .call(d3.drag()
+      .on("start drag", function() { handlePercentageSlide(percentageScale.invert(d3.event.x)) } ))
+
+  // enter + append target slider
+  var targetSlider = svg.append("g")
+    .attr("class", "slider")
+    .attr("transform", "translate(" + margin.left + "," + (height * 0.8) + ")")
+
+  targetSlider.append("line")
+    .attr("class", "slideLine")
+    .attr("x1", targetScale.range()[0])
+  	.attr("x2", targetScale.range()[1])
+
+
+  var targetHandle = targetSlider.insert("circle")
+    .attr("class", "handle")
+    .attr("cx", lineWidth / 2)
+    .attr("r", radius)
+    .call(d3.drag()
+      .on("start drag", function() { handleTargetSlide(targetScale.invert(d3.event.x)) } ))
+
+  // handler functions
+  // function handleMainSlide(d) {
+  //   mainHandle.attr("cx", mainScale(d))
+  // }
+
+  function handlePercentageSlide(d) {
+    percentageHandle.attr("cx", percentageScale(d))
+    mainHandle.attr("cx", mainScale(targetScale.invert(targetHandle.attr("cx")) *   percentageScale.invert(percentageHandle.attr("cx"))))
+    console.log("main", mainScale.invert(mainHandle.attr("cx")))
+    console.log("pct", percentageScale.invert(percentageHandle.attr("cx")))
+    console.log("target", targetScale.invert(targetHandle.attr("cx")))
+  }
+
+  function handleTargetSlide(d) {
+    targetHandle.attr("cx", targetScale(d))
+    mainHandle.attr("cx", mainScale(targetScale.invert(targetHandle.attr("cx")) *   percentageScale.invert(percentageHandle.attr("cx"))))
+    console.log("main", mainScale.invert(mainHandle.attr("cx")))
+    console.log("pct", percentageScale.invert(percentageHandle.attr("cx")))
+    console.log("target", targetScale.invert(targetHandle.attr("cx")))
+  }
+
+
+  </script>
+</body>

@@ -1,0 +1,61 @@
+<head>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="./slider.js"></script>
+  <style>
+    .slideLine {
+      stroke: #000;
+      stroke-width: 5px;
+      stroke-linecap: round;
+    }
+  </style>
+</head>
+<body>
+  <script>
+
+  let data = [
+    {
+      name: "Signing Bonus",
+      min: 10,
+      max: 20,
+      val: 15,
+      unit: "$k"
+    },
+    {
+      name: "Base Salary",
+      min: 60,
+      max: 100,
+      val: 80,
+      unit: "$k"
+    },
+    {
+      name: "Incentive Bonus",
+      drivers: {
+        commission: {
+          min: 0,
+          max: 25,
+          val: 15,
+          unit: "%"
+        },
+        target: {
+          min: 80,
+          max: 120,
+          val: 100,
+          unit: "$k"
+        }
+      },
+      unit: "$k"
+    }
+  ]
+
+  let margin = {right: 20, left: 20},
+      width = 1200,
+      height = 400,
+      radius = 9;
+
+  let svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+  </script>
+</body>
