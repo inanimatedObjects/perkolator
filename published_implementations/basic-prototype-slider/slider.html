@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<style>
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+  .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    text-align: center;
+  }
+  .panel {
+    /* flex: 1; */
+    flex-basis: content;
+    border: 1px solid;
+    margin: 10px;
+    height: 150px;
+    width: 350px;
+  }
+  .handle {
+    fill: white;
+    stroke: black;
+    stroke-width: 1px;
+  }
+  .slideLine {
+    stroke: #000;
+    stroke-width: 3px;
+    stroke-linecap: round;
+  }
+  circle {
+      fill: white;
+      stroke: blue;
+      stroke-width: 2px;
+  }
+  .summary {
+      margin: 10px;
+      border: 1px solid;
+  }
+  .summaryLabel {
+      margin: 0px;
+      border: 1px solid;
+      font-size: 30px;
+  }
+  .summaryValue {
+      font-size: 40px;
+      fill:blue;
+  }
+</style>
+
+<body>
+
+<div id="root">
+    <div class="overview row"></div>
+    <div class="cash row">
+      <div class="panel"></div>
+      <div class="panel"></div>
+      <div class="panel"></div>
+    </div>
+    <div class="equity row">
+      <div class="panel"></div>
+      <div class="panel"></div>
+      <div class="panel"></div>
+    </div>
+    <div class="perks row">
+      <div class="panel"></div>
+      <div class="panel"></div>
+      <div class="panel"></div>
+    </div>
+    <div class="time row">
+      <div class="panel"></div>
+      <div class="panel"></div>
+      <div class="panel"></div>
+    </div>
+</div>
+
+  <script src="http://d3js.org/d3.v4.min.js"></script>
+  <script src="./slider.js"></script>
+  <script src="./data.js"></script>
+  <script>
+
+  let data = [
+    { name: "Signing Bonus", min: 10, val: 19, max: 20 },
+    { name: "Base Salary", min: 80, val: 100, max: 120 },
+    { name: "Incentive Bonus", min: 5, val: 5, max: 15 },
+    { name: "Signing Equity", min: 16, val: 20, max: 31 },
+    { name: "eqRate", min: 5, val: 11, max: 14 },
+    { name: "Incentive Equity", min: 10, val: 30, max: 40 },
+    { name: "Stipends", min: 0, val: 5, max: 8 },
+    { name: "Benefits", min: 4, val: 16, max: 30 },
+    { name: "Retirement Savings", min: 0, val: 3, max: 6 },
+    { name: "timeRate", min: 20, val: 40, max: 60 },
+    { name: "timeAllocation", min: 0, val: 4, max: 10 },
+    { name: "timeUtilization", min: 30, val: 32, max: 40 }
+  ];
+
+    const add = (a, b) => a + b
+
+    let offerArr = data.map( (d) => d.val ),
+        totalComp = offerArr.reduce(add);
+
+      d3.selectAll(".panel").append("svg")
+        .each(function(d, i) {
+          // append ids + sliders
+          d3.select(this)
+            .attr("id", i)
+            .call(slider(data));
+          // set initial cx values
+          d3.select(".handle" + i)
+            .attr("cx", (data[i].val / (data[i].max + data[i].min)) * 280)
+          // append panel names
+          d3.select(this).append("g")
+            .attr("class", "textContainer cont" + i)
+            .attr("transform", "translate(25, 20)")
+            .append("text")
+              .text(data[i].name)
+              .attr("class", "panelName name" + i)
+              .attr("text-anchor", "start")
+              .attr("alignment-baseline", "text-before-edge");
+          // display initial data values
+          d3.select(".cont" + i)
+            .append("text")
+              .text(data[i].val)
+              .attr("class", "dataVal val" + i)
+              .attr("x", 300)
+              .attr("text-anchor", "end")
+              .attr("alignment-baseline", "text-before-edge");
+        })
+
+
+    let summaryPanel = d3.select(".overview").append("svg")
+
+    summaryPanel.append('g')
+            .attr("class", "summary")
+            .attr("transform", "translate(37.5, 25)")
+        .append('text')
+            .attr('class', "summaryLabel")
+            .text('total comp package')
+    d3.select(".summary").append('text')
+        .attr("transform", "translate(37.5, 65)")
+        .attr('class', "summaryValue")
+        .text(totalComp)
+
+
+
+  </script>
+</body>
