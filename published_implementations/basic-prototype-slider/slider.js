@@ -53,74 +53,24 @@ var axis = d3.axisBottom()
       	.on("start drag", function() { handleSlide(x.invert(d3.event.x), id, this.totalComp) }))
 
     function handleSlide(d, id) {
-        let handlemove = d3.select(".handle" + id);
-        let startVal = handlemove.attr("cx")
-            // console.log("sV : ", startVal)
+        let startVal = offerArr[id]
+
         d3.select(".handle" + id)
             .attr("cx", x(d));
-
-        let endVal = handlemove.attr("cx");
-        let slideDiff = endVal - startVal;
-        totalComp = totalComp + slideDiff;
-        // console.log("TC after:", totalComp)
-        // console.log("diff before:", slideDiff)
-        // console.log("TC before:", totalComp)
 
         d3.select(".val" + id)
             .text(Math.round(data[id].min + (d * (data[id].max - data[id].min))))
 
+        let endVal = Number(d3.select(".val" + id).text());
 
+        totalComp = totalComp - startVal + endVal;
+
+        offerArr[id] = endVal
 
         d3.select(".summaryValue")
             .text(Math.round(totalComp, 0))
-
 
     }
   }
   return drawSlider;
 }
-
-
-// let sum = arr.reduce((acc, val) => {
-//   return acc + val;
-// });
-// //
-// // let tempArr = data;
-// // const reducer = (accumulator, currentValue) => accumulator + currentValue;
-//
-// console.log(data[0].val)
-// // console.log(tempArr.reduce(reducer, d.val))
-// // return tempArr.reduce(reducer, d[i].val)
-//
-// //     var tempArr = data;
-// //     totalComp = tempArr.reduce((acc,.val ) => acc + d[i].val)
-// //     console.log(totalComp)
-// //     return totalComp;
-//
-// //
-// .select('text')
-// .each(function(d, i){
-//      console.log(d)
-//      d.text("new text")
-//     })
-
-//
-// const add = (a, b) => a + b
-//
-// totalComp = tempArr.reduce(add)
-//
-//
-// acc = acc + d[i].val
-// return acc
-
-// offerArr =
-// //
-// totalComp = offerArr.reduce(add);
-
-// let tempArr = [ ].push(this.text)
-// console.log(tempArr)
-
-
-// let newTotal = d3.selectAll(".val")
-// d3.selectAll(".dataVal")
-// d3.selectAll(".panel").append("svg")

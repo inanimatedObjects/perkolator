@@ -2,10 +2,6 @@
 <meta charset="utf-8">
 
 <style>
-  #fixed-width-wrapper {
-    min-width: 1250px;
-    margin: 0 auto;
-  }
   svg {
     width: 100%;
     height: 100%;
@@ -17,7 +13,6 @@
     text-align: center;
   }
   .panel {
-    /* flex: 1; */
     flex-basis: content;
     border: 1px solid;
     margin: 10px;
@@ -34,30 +29,32 @@
     stroke-width: 5px;
     stroke-linecap: round;
   }
+  .summaryContainer {
+    border: 1px solid;
+  }
 </style>
 
 <body>
-  <div id="fixed-width-wrapper">
-    <div class="cash row">
-      <div class="panel"></div>
-      <div class="panel"></div>
-      <div class="panel"></div>
-    </div>
-    <div class="equity row">
-      <div class="panel"></div>
-      <div class="panel"></div>
-      <div class="panel"></div>
-    </div>
-    <div class="perks row">
-      <div class="panel"></div>
-      <div class="panel"></div>
-      <div class="panel"></div>
-    </div>
-    <div class="time row">
-      <div class="panel"></div>
-      <div class="panel"></div>
-      <div class="panel"></div>
-    </div>
+  <div class="summary row"></div>
+  <div class="cash row">
+    <div class="panel"></div>
+    <div class="panel"></div>
+    <div class="panel"></div>
+  </div>
+  <div class="equity row">
+    <div class="panel"></div>
+    <div class="panel"></div>
+    <div class="panel"></div>
+  </div>
+  <div class="perks row">
+    <div class="panel"></div>
+    <div class="panel"></div>
+    <div class="panel"></div>
+  </div>
+  <div class="time row">
+    <div class="panel"></div>
+    <div class="panel"></div>
+    <div class="panel"></div>
   </div>
 
   <script src="http://d3js.org/d3.v4.min.js"></script>
@@ -92,6 +89,9 @@
               .attr("text-anchor", "end")
               .attr("alignment-baseline", "text-before-edge");
         })
+
+        d3.select(".summary").append("svg")
+          .attr("class", "summaryContainer")
 
   </script>
 </body>
