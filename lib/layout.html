@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Perkolator_MVP_v.0.1.0</title>
+
+<style>
+  #perkolator {
+    margin: 20px;
+    border: 0px dashed;
+  }
+  div {
+    margin: 20px;
+    height: 80px;
+    border: 0.5px dashed;
+
+  }
+</style>
+
+<div id="perkolator">
+  <h1 style="margin:0px;">Perkolator</h1>
+  <h4 style="margin-left:45px; margin-top:5px;">If you're selling out to the Man, at least figure out what your time is worth</h4>
+
+  <div id="summaryPanel">
+  	<h2 style="margin:15px;">Total Offer Value</h2>
+    <svg id="summaryOffer">
+
+    </svg>
+  </div>
+
+  <div id="stackedbarPanel">
+    <h2 style="margin:15px;">Stacked Bars</h2>
+    <svg id="stackedBars">
+   	 <g id="_ratedBased_value_stacked"></g>
+     <g id="_periodBased_value_stacked"></g>
+		</svg>
+  </div>
+
+
+  <div id="inputPanel">
+    <h2 style="margin:15px;">Input Panel</h2>
+    <svg id="sliderPanel">
+   	 <g id="_upFront_income_value"></g>
+     <g id="_rateBased_income_value"></g>
+   	 <g id="_periodBased_income_value"></g>
+   	 <g id="_timeBased_cost"></g>
+		</svg>
+	</div>
+</div>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+
+<script>
+
+var data = [
+  {
+    "_upFront_income_value" : 5000,
+    "_rateBased_income_value" : 100000,
+    "_periodBased_income_value" : 10000,
+    "_timeBased_cost" : 115000
+  }
+];
+
+
+
+
+</script>
