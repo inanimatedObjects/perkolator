@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <style>
+    .grid-line {
+      stroke: black;
+      opacity: 0.2;
+    }
+
+    .dot {
+      fill: white;
+      stroke: black;
+    }
+
+    circle {
+      stroke: black;
+    }
+
+    .active {
+      stroke-dasharray: 5, 5;
+    }
+
+    body {
+      font-family: sans-serif;
+      margin: 0px;
+    }
+
+    text {
+      font-size: 16px;
+    }
+
+    .ratio text {
+      font-size: 22px;
+    }
+
+    a {
+      position: absolute;
+      top: 70px;
+      left: 460px;
+    }
+
+    .ratio-single {
+      fill: url(#temperature-gradient);
+    }
+  </style>
+</head>
+
+<body>
+  <a href="#" class="reset-btn">Reset</a>
+  <script>
+    var margin = {top: 130, right: 30, bottom: 0, left: 30};
+
+    var width = 960 - margin.left - margin.right,
+    		height = 500 - margin.top - margin.bottom;
+
+    var svg = d3.select("body").append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var salaryRange = [0, 200000];
+
+    var colourMin = "blue",
+        colourMid = "yellow",
+        colourMax = "red";
+
+    var radius = 30,
+    	strokewidth = 1;
+
+    var graphHeight = 100;
+   	var graphRatioMargin = 75;
+
+    var ratioHeight = 45;
+    var singleSalarySize = 60,
+        salaryPadding = 2;
+
+    var legendXPos = 55,
+    	legendYPos = -80,
+    	legendPadding = 110;
+
+    var x = d3.scaleLinear()
+    	.domain(salaryRange)
+    	.range([0, width])
+    	.nice();
+
+    var xAxis = d3.axisTop().scale(x)
+    	.tickFormat(function(d, i) {
+        if (i == 0) {
+          return "$0"
+        } else {
+        	return d3.format(".2s")(d);
+        }
+      });
+
+    var te = d3.easeCubic;
+
+    var colourMinMid = d3.scaleLinear()
+    	.domain([salaryRange[0], salaryRange[1] / 2])
+    	.range([colourMin, colourMid]);
+
+    var colourMidMax = d3.scaleLinear()
+    	.domain([salaryRange[1] / 2, salaryRange[1]])
+    	.range([colourMid, colourMax]);
+
+    var colour = function(value) {
+      if (value <= salaryRange[1] / 2) {
+        return colourMinMid(value);
+      } else {
+        return colourMidMax(value);
+      }
+    };
+
+    var dots = [
+      {
+        type: "min",
+        value: 70000,
+        colour: colour(10000),
+        y: graphHeight / 2
+      },
+      {
+        type: "median",
+        value: 120000,
+        colour: colour(120000),
+        y: graphHeight / 2
+      },
+      {
+        type: "max",
+        value: 220000,
+        colour: colour(180000),
+        y: graphHeight / 2
+    	}];
+
+    var linearGradient = svg.append("linearGradient")
+      .attr("id", "temperature-gradient")
+      .attr("gradientUnits", "userSpaceOnUse")
+      .attr("x1", 0).attr("y1", 0)
+      .attr("x2", width).attr("y2", 0)
+    .selectAll("stop")
+      .data([
+        { colour: colourMin },
+        { colour: colourMid },
+        { colour: colourMax },
+      ])
+    .enter().append("stop")
+      .attr("offset", function(d, i) { return i * 50 + "%" })
+      .attr("stop-color", function(d) { return d.colour; });
+
+    var dotsoriginal = JSON.parse(JSON.stringify(dots));
+
+    var dragbehaviour = d3.drag()
+    	.on("start", dragstarted)
+    	.on("drag", dragged)
+    	.on("end", dragended);
+
+    var xAxisGroup = svg.append("g")
+    	.attr("class", "axis-group");
+
+    var xAxisLine = xAxisGroup.append("g")
+    	.call(xAxis.ticks());
+
+    var gridLineGenerator = d3.line();
+    var axisLinePath = function(d) {
+      return gridLineGenerator([[x(d) + 0.5, 0], [x(d) + 0.5, graphHeight]]);
+    };
+
+   	var axisLines = xAxisGroup.selectAll("path")
+    	.data(x.ticks().concat(0))
+    .enter().append("path")
+    	.attr("class", "grid-line")
+    	.attr("d", axisLinePath);
+
+    var lineGenerator = d3.line()
+    	.x(function(d) { return x(d.value) + (d.type == "min" ? radius : -radius)})
+    	.y(function(d) { return d.y });
+
+    var pathString = function() { return lineGenerator(dots) };
+
+    var interactiveLineGroup = svg.append("g")
+    	.attr("class", "interactive-line");
+
+    var fullLine = interactiveLineGroup.append("line")
+    	.attr("class", "background-line")
+			.attr("x1", 0)
+      .attr("x2", width)
+    	.attr("y1", graphHeight / 2)
+    	.attr("y2", graphHeight / 2)
+    	.style("stroke", "black")
+    	.style("stroke-opacity", 0.15)
+    	.style("stroke-width", strokewidth * 5);
+
+    var line = interactiveLineGroup.append("path")
+    	.attr("class", "line")
+    	.attr("d", pathString)
+    	.attr("stroke", "black")
+    	.style("stroke-width", strokewidth * 25)
+    	.style("stroke", "url(#temperature-gradient)");
+
+    // Create group for cirles
+    var circles = interactiveLineGroup.append("g")
+    	.attr("class", "circles")
+    .selectAll("g")
+    	.data(dots)
+    .enter().append("g")
+    	.attr("class", "circle-container");
+
+		circles.append("circle")
+    	.attr("class", "dot")
+    	.attr("cx", function(d) { return x(d.value * 1); })
+    	.attr("cy", function(d) { return d.y * 1; })
+    	.attr("r", radius)
+    	.style("fill", function(d) { return d.colour })
+    	.style("stroke-width", strokewidth + 4)
+    	.call(dragbehaviour);
+
+    // Add dots with larger radius to improve movement on mo
+		circles.append("circle")
+    	.attr("class", "touch-dot")
+    	.attr("cx", function(d) { return x(d.value); })
+    	.attr("cy", function(d) { return d.y; })
+    	.attr("r", radius * 2)
+    	.attr("fill", "white")
+    	.attr("opacity", 0.2)
+    	.call(dragbehaviour);
+
+    // Create group for legend
+    var legend = svg.append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d) {
+        return "translate(" + legendXPos + ", " + legendYPos + ")";
+      });
+
+    // Add text to legend
+   	var legendText = legend.selectAll("text")
+   		.data(dots)
+    .enter().append("text")
+      .attr("text-anchor", "start")
+    	.attr("x", function(d, i) { return i * legendPadding; })
+      .text(function(d) {
+      	return "$" + d3.format(".2s")(d.value);
+      });
+
+    var legendDots = legend.selectAll("circle")
+   		.data(dots)
+    .enter().append("circle")
+    	.attr("cx", function(d, i) { return i * legendPadding - 30; })
+    	.attr("cy", -5)
+    	.attr("r", radius * 3 / 4)
+    	.attr("fill", function(d) { return d.colour })
+    	.attr("stroke-width", strokewidth);
+
+    var ratio = svg.append("g")
+    	.attr("class", "ratio")
+    	.attr("transform", "translate(0," + (graphHeight + graphRatioMargin) + ")");
+
+    // draw min max ratio
+
+    var minMaxRatio = ratio.append("g")
+    	.attr("class", "minmax");
+    minMaxRatio.selectAll("rect")
+    	.data(function() {
+      	var minMaxRatio = dots[2].value / dots[0].value;
+      	return d3.range(Math.round(minMaxRatio));
+    	})
+    .enter().append("rect")
+    	.attr("class", "ratio-single")
+    	.attr("x", function(d) {
+      	return d * singleSalarySize;
+    	})
+    	.attr("width", singleSalarySize - salaryPadding)
+    	.attr("height", ratioHeight);
+
+    ratio.append("text")
+    	.attr("y", 0)
+    	.attr("dy", -10)
+    	.text("low-end / high-end ratio")
+
+    // draw min max ratio (refactor so these are both done in a single function)
+
+    var midMaxRatio = ratio.append("g")
+    	.attr("class", "midmax");
+    midMaxRatio.selectAll("rect")
+    	.data(function() {
+      	var midMaxRatio = dots[2].value / dots[1].value;
+      	return d3.range(Math.round(midMaxRatio));
+    	})
+    .enter().append("rect")
+    	.attr("class", "ratio-single")
+    	.attr("y", ratioHeight * 3)
+    	.attr("x", function(d) {
+      	return d * singleSalarySize;
+    	})
+    	.attr("width", singleSalarySize - salaryPadding)
+    	.attr("height", ratioHeight);
+
+    ratio.append("text")
+    	.attr("y", ratioHeight * 3)
+    	.attr("dy", -10)
+    	.text("set value / high-end ratio")
+
+    function dragstarted(d) {
+      var parentNode = d3.select(this.parentNode);
+      parentNode.selectAll("circle").classed("active", true);
+    }
+
+    function dragged(d) {
+      var minX, maxX;
+
+      if (d.type == "min") {
+        minX = 0;
+        maxX = x(dots[1].value) - (radius * 0) - strokewidth;
+      } else if (d.type == "median") {
+        minX = x(dots[0].value) + (radius * 0) + strokewidth;
+        maxX = x(dots[2].value) - (radius * 0) - strokewidth;
+      } else {
+        minX = x(dots[1].value) + (radius * 0) + strokewidth;
+        maxX = width;
+      }
+
+      var parentNode = d3.select(this.parentNode);
+      var xValue = Math.max(minX, Math.min(maxX, d3.event.x));
+
+      parentNode.selectAll("circle")
+      	.attr("cx", xValue)
+      	.style("fill", colour(x.invert(xValue)));
+
+      d.value = x.invert(Math.max(minX, Math.min(maxX, d3.event.x)));
+
+      var dotData = d3.select(this.parentNode.parentNode).selectAll(".dot").data()
+
+      // Enter, update, exit pattern for min max ratio
+      var minMaxSelection = minMaxRatio.selectAll("rect")
+        .data(function() {
+          var minMaxRatio = dotData[2].value / Math.max(1100, dotData[0].value);
+      		minMaxRatio = Math.min(minMaxRatio, (width / singleSalarySize) - 1);
+          return d3.range(Math.round(minMaxRatio));
+        });
+
+      minMaxSelection
+        .enter().append("rect")
+          .attr("class", "ratio-single")
+          .attr("x", function(d) {
+            return d * singleSalarySize;
+          })
+          .attr("width", singleSalarySize - salaryPadding)
+          .attr("height", ratioHeight)
+      		.attr("opacity", 0)
+      		.transition()
+      		.attr("opacity", 1);
+
+     	minMaxSelection
+      	.exit().remove();
+
+      // Enter, update, exit pattern for mid max ratio
+      var midMaxSelection = midMaxRatio.selectAll("rect")
+        .data(function() {
+          var midMaxRatio = dotData[2].value / Math.max(1100, dotData[1].value);
+      		midMaxRatio = Math.min(midMaxRatio, (width / singleSalarySize) - 1);
+          return d3.range(Math.round(midMaxRatio));
+        });
+
+      midMaxSelection
+        .enter().append("rect")
+          .attr("class", "ratio-single")
+    			.attr("y", ratioHeight * 3)
+          .attr("x", function(d) {
+            return d * singleSalarySize;
+          })
+          .attr("width", singleSalarySize - salaryPadding)
+          .attr("height", ratioHeight)
+          .attr("opacity", 0)
+      		.transition()
+      		.attr("opacity", 1);
+
+     	midMaxSelection
+      	.exit().remove();
+
+      line.attr("d", pathString);
+
+      legendText
+      	.text(function(d) {
+        	if (d.value < 100000) {
+            return "$" + d3.format(".2s")(d.value);
+          } else {
+        		return "$" + d3.format(".3s")(d.value);
+          }
+      	});
+
+      legendDots
+      	.style("fill", function(d) {
+        	return colour(d.value);
+      	})
+    }
+
+    function dragended(d) {
+      var parentNode = d3.select(this.parentNode);
+      parentNode.selectAll("circle").classed("active", false);
+    }
+
+    d3.select(".reset-btn")
+    	.on("click", function(d) {
+      	d3.event.preventDefault();
+      	dots = dotsoriginal;
+      	dotsoriginal = JSON.parse(JSON.stringify(dots));
+
+     	 	line.transition()
+        	.duration(500)
+        	.ease(te)
+          .attr("d", pathString);
+
+      	circles.data(dots);
+
+      	circles.transition()
+        	.duration(500)
+        	.ease(te)
+        	.select(".dot")
+        	.attr("cx", function(d) { return x(d.value); })
+      		.style("fill", function(d) { return colour(d.value); });
+
+        circles.transition()
+        	.duration(500)
+        	.ease(te)
+        	.select(".touch-dot")
+        	.attr("cx", function(d) { return x(d.value); });
+
+      	legendText.data(dots).transition()
+        	.duration(500)
+        	.ease(te)
+          .text(function(d) {
+            if (d.value < 100000) {
+              return "£" + d3.format(".2s")(d.value);
+            } else {
+              return "£" + d3.format(".3s")(d.value);
+            }
+          });
+
+      	legendDots.data(dots).transition()
+          .duration(500)
+        	.ease(te)
+          .style("fill", function(d) {
+            return colour(d.value);
+          });
+
+
+        // Enter, update, exit pattern for min max ratio
+      	// REFACTOR INTO SINGLE FUNCTION
+      	var minMaxSelection = minMaxRatio.selectAll("rect")
+        .data(function() {
+          var minMaxRatio = dots[2].value / Math.max(1100, dots[0].value);
+      		minMaxRatio = Math.min(minMaxRatio, (width / singleSalarySize) - 1);
+          return d3.range(Math.round(minMaxRatio));
+        });
+
+        minMaxSelection
+          .enter().append("rect")
+            .attr("class", "ratio-single")
+            .attr("x", function(d) {
+              return d * singleSalarySize;
+            })
+            .attr("width", singleSalarySize - salaryPadding)
+            .attr("height", ratioHeight)
+            .attr("opacity", 0)
+        	  .transition()
+        		.delay(function(d, i) { return 50 * i })
+        		.attr("opacity", 1);
+
+        minMaxSelection
+          .exit()
+          .transition()
+        	.delay(function(d, i) { return 1000 / i })
+          .remove();
+
+        // Enter, update, exit pattern for mid max ratio
+        var midMaxSelection = midMaxRatio.selectAll("rect")
+          .data(function() {
+            var midMaxRatio = dots[2].value / Math.max(1100, dots[1].value);
+            midMaxRatio = Math.min(midMaxRatio, (width / singleSalarySize) - 1);
+            return d3.range(Math.round(midMaxRatio));
+          });
+
+        midMaxSelection
+          .enter().append("rect")
+            .attr("class", "ratio-single")
+            .attr("y", ratioHeight * 3)
+            .attr("x", function(d) {
+              return d * singleSalarySize;
+            })
+            .attr("width", singleSalarySize - salaryPadding)
+            .attr("height", ratioHeight)
+        		.attr("opacity", 0)
+        	  .transition()
+        		.delay(function(d, i) { return 50 * i })
+        		.attr("opacity", 1);
+
+        midMaxSelection
+          .exit()
+        	.transition()
+        	.delay(function(d, i) { return 1000 / i })
+        	.attr("opacity", 0)
+          .remove();
+
+    	});
+
+  </script>
+</body>
