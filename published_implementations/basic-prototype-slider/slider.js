@@ -11,26 +11,12 @@ function slider(data)
     .range ([0, width])
     .clamp(true);
 
-var scale = d3.scaleLinear()
-        .domain([0, 1]).range([0, axisWidth]);
-
-var axis = d3.axisBottom()
-        .scale(scale)
-        .ticks(10)
-        .tickSize(12)
-        .tickPadding(10)
-        .tickFormat(d3.format(".0%"));
-
-   // var xAxis = d3.svg.axis()
-   //      .scale(axisScale);
-
 
   function drawSlider(svg) {
 
     slider = svg.append("g")
       .attr("class", "slider")
       .attr("transform", "translate(37.5, 25)")
-      .attr("class", "axis")
       .attr("width", width)
       .attr("height", height)
       // ^ needs adjustment
@@ -43,7 +29,6 @@ var axis = d3.axisBottom()
     	.attr("x2", x.range()[1])
     	.attr("y1", height / 2)
     	.attr("y2", height / 2)
-        .call(axis);
 
     slider.append("circle")
     	.attr("class", "handle" + id)

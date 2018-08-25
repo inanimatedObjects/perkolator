@@ -27,7 +27,7 @@
   }
   .slideLine {
     stroke: #000;
-    stroke-width: 3px;
+    stroke-width: 2px;
     stroke-linecap: round;
   }
   circle {
@@ -47,6 +47,9 @@
   .summaryValue {
       font-size: 40px;
       fill:blue;
+  }
+  .axis {
+    stroke-width: 3px
   }
 </style>
 
@@ -127,6 +130,19 @@
               .attr("x", 300)
               .attr("text-anchor", "end")
               .attr("alignment-baseline", "text-before-edge");
+          // add ticks
+          let scale = d3.scaleLinear()
+            .domain([data[i].min, data[i].max])
+            .range([0, 280])
+
+          let axis = d3.axisBottom()
+            .scale(scale)
+            .ticks()
+
+          d3.select(this).append("g")
+            .attr("class", "axis")
+            .attr("transform", "translate(37, 100)")
+            .call(axis);
         })
 
 
