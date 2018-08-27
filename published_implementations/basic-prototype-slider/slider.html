@@ -6,6 +6,10 @@
     width: 100%;
     height: 100%;
   }
+  .bar {
+    border: 1px solid;
+    margin: 0px 28px 0px 10px;
+  }
   .row {
     display: flex;
     flex-direction: row;
@@ -26,7 +30,7 @@
     stroke-width: 1px;
   }
   .slideLine {
-    stroke: #000;
+    stroke: black;
     stroke-width: 2px;
     stroke-linecap: round;
   }
@@ -44,7 +48,10 @@
       border: 1px solid;
       font-size: 30px;
   }
-  .summaryValue {
+  .initialValue {
+    font-size: 40px;
+  }
+  .adjustedValue {
       font-size: 40px;
       fill:blue;
   }
@@ -56,7 +63,7 @@
 <body>
 
 <div id="root">
-    <div class="overview row"></div>
+    <div class="overview bar"></div>
     <div class="cash row">
       <div class="panel"></div>
       <div class="panel"></div>
@@ -77,6 +84,9 @@
       <div class="panel"></div>
       <div class="panel"></div>
     </div> -->
+    <div class="rangeSettings bar ">
+      range settings
+    </div>
 </div>
 
   <script src="http://d3js.org/d3.v4.min.js"></script>
@@ -85,7 +95,7 @@
   <script>
 
   let data = [
-    { name: "Signing Bonus", min: 10, val: 19, max: 20 },
+    { name: "Signing Bonus", min: 10, val: 18, max: 20 },
     { name: "Base Salary", min: 80, val: 100, max: 120 },
     { name: "Incentive Bonus", min: 5, val: 7, max: 15 },
     { name: "Signing Equity", min: 16, val: 20, max: 31 },
@@ -102,7 +112,8 @@
     const add = (a, b) => a + b
 
     let offerArr = data.map( (d) => d.val ),
-        totalComp = offerArr.reduce(add);
+        totalComp = offerArr.reduce(add),
+        newTotal = totalComp;
 
       d3.selectAll(".panel").append("svg")
         .each(function(d, i) {
@@ -148,16 +159,22 @@
 
     let summaryPanel = d3.select(".overview").append("svg")
 
-    summaryPanel.append('g')
+    summaryPanel.append("g")
             .attr("class", "summary")
             .attr("transform", "translate(37.5, 25)")
-        .append('text')
-            .attr('class', "summaryLabel")
-            .text('total comp package')
-    d3.select(".summary").append('text')
+        .append("text")
+            .attr("class", "summaryLabel")
+            .text("total comp package")
+    // append initial offer
+    d3.select(".summary").append("text")
         .attr("transform", "translate(37.5, 65)")
-        .attr('class', "summaryValue")
-        .text("$" + totalComp + "k")
+        .attr("class", "initialValue")
+        .text("Initial offer: $" + totalComp + "k")
+    // append adjusted offer
+    d3.select(".summary").append("text")
+        .attr("transform", "translate(507.5, 65)")
+        .attr("class", "adjustedValue")
+        .text("Adjusted offer: $" + newTotal + "k")
 
 
 

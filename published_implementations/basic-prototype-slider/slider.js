@@ -1,5 +1,4 @@
-function slider(data)
-{
+function slider(data) {
   let margin = {top: 100, left: 15},
     width  = 280,
     height = 150,
@@ -51,13 +50,13 @@ function slider(data)
         endVal = Number(endVal.substring(1, endVal.length - 1))
         console.log('ev: ', endVal)
 
-        totalComp = totalComp - startVal + endVal;
-        console.log('tc:', totalComp)
+        newTotal = newTotal - startVal + endVal;
+        console.log('tc:', newTotal)
 
         offerArr[id] = endVal
 
-        d3.select(".summaryValue")
-            .text("$" + Math.round(totalComp, 0) + "k")
+        d3.select(".adjustedValue")
+            .text("Adjusted offer: $" + Math.round(newTotal, 0) + "k")
 
     }
   }
