@@ -9,6 +9,7 @@
   .bar {
     border: 1px solid;
     margin: 0px 28px 0px 10px;
+    text-align: center;
   }
   .row {
     display: flex;
@@ -64,7 +65,7 @@
     cursor: pointer;
     padding: 18px;
     width: 100%;
-    text-align: left;
+    text-align: center;
     border: none;
     outline: none;
     transition: 0.4s;
@@ -103,18 +104,54 @@
       <div class="panel"></div>
     </div> -->
     <div class="rangeSettings bar ">
-      in set ranges
+      Set ranges
       <button class="accordion">Cash ranges</button>
       <div class="submenu">
         in cash ranges
+        <div class="range signBonus">
+          Max Signing Bonus: <input type="number" class="signBonus max"></input>
+          Min Signing Bonus: <input type="number" class="signBonus min"></input>
+        </div>
+        <div class="range baseSal">
+          Max Base Salary: <input type="number" class="baseSal max"></input>
+          Min Base Salary: <input type="number" class="baseSal min"></input>
+        </div>
+        <div class="range incentiveBonus">
+          Max Incentive Bonus: <input type="number" class="incentiveBonus max"></input>
+          Min Incentive Bonus: <input type="number" class="incentiveBonus min"></input>
+        </div>
       </div>
       <button class="accordion">Equity Ranges</button>
       <div class="submenu">
         in equity ranges
+        <div class="range signEq">
+          Max Signing Equity: <input type="number" class="signEq max"></input>
+          Min Signing Equity: <input type="number" class="signEq min"></input>
+        </div>
+        <div class="range earnedEq">
+          Max Earned Equity: <input type="number" class="earnedEq max"></input>
+          Min Earned Equity: <input type="number" class="earnedEq min"></input>
+        </div>
+        <div class="range incentiveEq">
+          Max Incentive Equity: <input type="number" class="incentiveEq max"></input>
+          Min Incentive Equity: <input type="number" class="incentiveEq min"></input>
+        </div>
       </div>
       <button class="accordion">Perks ranges</button>
       <div class="submenu">
         in perks ranges
+        <div class="range stipends">
+          Max Stipends: <input type="number" class="stipends max"></input>
+          Min Stipends: <input type="number" class="stipends min"></input>
+        </div>
+        <div class="range benefits">
+          Max Benefits: <input type="number" class="benefits max"></input>
+          Min Benefits: <input type="number" class="benefits min"></input>
+        </div>
+        <div class="range retirement">
+          Max Retirement Savings: <input type="number" class="retirement max"></input>
+          Min Retirement Savings: <input type="number" class="retirement min"></input>
+        </div>
       </div>
     </div>
 </div>
