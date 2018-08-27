@@ -1,5 +1,4 @@
-function slider(data)
-{
+function slider(data) {
   let margin = {top: 100, left: 15},
     width  = 280,
     height = 150,
@@ -39,21 +38,25 @@ function slider(data)
 
     function handleSlide(d, id) {
         let startVal = offerArr[id]
+        console.log('sv: ', startVal)
 
         d3.select(".handle" + id)
             .attr("cx", x(d));
 
         d3.select(".val" + id)
-            .text(Math.round(data[id].min + (d * (data[id].max - data[id].min))))
+            .text("$" + Math.round(data[id].min + (d * (data[id].max - data[id].min))) + "k")
 
-        let endVal = Number(d3.select(".val" + id).text());
+        let endVal = d3.select(".val" + id).text()
+        endVal = Number(endVal.substring(1, endVal.length - 1))
+        console.log('ev: ', endVal)
 
-        totalComp = totalComp - startVal + endVal;
+        newTotal = newTotal - startVal + endVal;
+        console.log('tc:', newTotal)
 
         offerArr[id] = endVal
 
-        d3.select(".summaryValue")
-            .text(Math.round(totalComp, 0))
+        d3.select(".adjustedValue")
+            .text("Adjusted offer: $" + Math.round(newTotal, 0) + "k")
 
     }
   }
