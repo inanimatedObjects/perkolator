@@ -125,6 +125,7 @@
           // set initial cx values
           d3.select(".handle" + i)
             .attr("cx", (((data[i].val - data[i].min) / (data[i].max - data[i].min))) * 280)
+
           // append panel names
           d3.select(this).append("g")
             .attr("class", "textContainer cont" + i)
